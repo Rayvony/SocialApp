@@ -26,7 +26,7 @@
   --color-popover-foreground: oklch(0.141 0.005 285.823);
   --color-control-disabled: oklch(0 0 0 / 25%);
 
-  --color-primary: oklch(54.095% 0.16315 260.935);
+  --color-primary: oklch(47.141% 0.20668 335.252);
   --color-primary-foreground: oklch(97.172% 0.00524 248.361);
   --color-secondary: oklch(23.711% 0.05214 261.211);
   --color-secondary-foreground: oklch(97.172% 0.00524 248.361);
@@ -81,6 +81,10 @@
   --color-accordion-background: oklch(0.21 0.006 285.885);
   --color-accordion-header: color-mix(in oklch, oklch(0.21 0.006 285.885) 70%, oklch(0 0 0) 30%);
   --color-accordion-border: color-mix(in oklch, oklch(0.21 0.006 285.885) 70%, oklch(0 0 0) 30%);
+
+  .firma-brand {
+    filter: brightness(0) invert(1);
+  }
 }
 
 * {

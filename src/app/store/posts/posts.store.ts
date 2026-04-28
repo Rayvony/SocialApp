@@ -163,7 +163,6 @@ export const PostsStore = signalStore(
         posts: [...updated],
       }));
 
-      console.log(updated);
       saveToStorage(updated);
     },
 

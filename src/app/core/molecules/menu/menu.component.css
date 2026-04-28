@@ -119,8 +119,3 @@
 .generic-menu .menu-item-button:disabled {
   cursor: not-allowed;
 }
-
-.generic-menu.open .trigger-icon {
-  transform: rotateX(180deg);
-  transform-origin: center;
-}

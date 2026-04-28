@@ -95,16 +95,16 @@ export const UiStore = signalStore(
       });
     },
 
-    success(summary: string, detail?: string, duration = 4000): void {
+    success(summary: string, detail?: string, duration = 1800): void {
       this.addToast({ severity: 'success', summary, detail, duration });
     },
-    info(summary: string, detail?: string, duration = 4000): void {
+    info(summary: string, detail?: string, duration = 2500): void {
       this.addToast({ severity: 'info', summary, detail, duration });
     },
-    warn(summary: string, detail?: string, duration = 5000): void {
+    warn(summary: string, detail?: string, duration = 3000): void {
       this.addToast({ severity: 'warn', summary, detail, duration });
     },
-    danger(summary: string, detail?: string, duration = 6000): void {
+    danger(summary: string, detail?: string, duration = 2800): void {
       this.addToast({ severity: 'danger', summary, detail, duration });
     },
   })),

@@ -81,5 +81,9 @@ export class PostComposerComponent implements OnInit {
     if (event.key === 'Enter' && (event.ctrlKey || event.metaKey)) {
       this.submit();
     }
+
+    if (event.key === 'Escape') {
+      this.cancel();
+    }
   }
 }
