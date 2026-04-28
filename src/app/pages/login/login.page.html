@@ -1,0 +1,77 @@
+<main class="login-page">
+  <div class="login-wrapper">
+    <div class="login-brand">
+      <ui-icon name="users" [size]="40" className="text-primary" />
+      <h1 class="login-title">SocialApp</h1>
+      <p class="login-subtitle">Conectate con tu comunidad</p>
+    </div>
+
+    <ui-card>
+      <ui-button
+        variant="light"
+        size="md"
+        className="w-full mb-4"
+        [disabled]="authStore.loading()"
+        (onClick)="onGoogleLogin()"
+      >
+        Continuar con Google
+        <img src="icons/icon-google.svg" width="18" height="18" />
+      </ui-button>
+
+      <div class="login-divider">
+        <span class="login-divider-text">o iniciá sesión con email</span>
+      </div>
+
+      <form (ngSubmit)="onSubmit()" novalidate class="login-form">
+        <div class="login-field">
+          <label class="login-label" [for]="'email'">Email</label>
+          <ui-input
+            id="email"
+            name="email"
+            type="email"
+            placeholder="tu@email.com"
+            [control]="emailControl"
+          />
+          @if (emailError) {
+            <span class="login-error">{{ emailError }}</span>
+          }
+        </div>
+
+        <div class="login-field">
+          <label class="login-label" [for]="'password'">Contraseña</label>
+          <ui-input
+            id="password"
+            name="password"
+            type="password"
+            placeholder="••••••"
+            [control]="passwordControl"
+          />
+          @if (passwordError) {
+            <span class="login-error">{{ passwordError }}</span>
+          }
+        </div>
+
+        <ui-button
+          type="submit"
+          variant="primary"
+          size="md"
+          className="w-full mt-2"
+          [disabled]="authStore.loading()"
+        >
+          @if (authStore.loading()) {
+            <ui-icon name="loader-circle" [size]="18" className="animate-spin" />
+            Iniciando sesión...
+          } @else {
+            <ui-icon name="log-in" [size]="18" />
+            Iniciar sesión
+          }
+        </ui-button>
+      </form>
+
+      <div class="login-hint">
+        <p>Credenciales de prueba:</p>
+        <code>ana@mail.com / 123456</code>
+      </div>
+    </ui-card>
+  </div>
+</main>

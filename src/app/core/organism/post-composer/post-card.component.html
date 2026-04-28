@@ -1,0 +1,103 @@
+<article class="post-card">
+  <div class="post-header">
+    <div class="post-author">
+      @if (post().authorAvatar) {
+        <img [src]="post().authorAvatar" [alt]="post().authorName" class="post-avatar" />
+      } @else {
+        <div class="post-avatar-placeholder">
+          <ui-icon name="user" [size]="18" />
+        </div>
+      }
+      <div class="post-author-info">
+        <span class="post-author-name">{{ post().authorName }}</span>
+        <span class="post-time">{{ timeAgo }}</span>
+      </div>
+    </div>
+
+    @if (isOwner()) {
+      <ui-button variant="light" size="icon-sm" (onClick)="onDelete.emit()">
+        <ui-icon name="trash-2" [size]="15" />
+      </ui-button>
+    }
+  </div>
+
+  <p class="post-content">{{ post().content }}</p>
+
+  @if (post().imageUrl) {
+    <img [src]="post().imageUrl" alt="Post image" class="post-image" />
+  }
+
+  <div class="post-actions">
+    <ui-button
+      variant="light"
+      size="sm"
+      [className]="liked() ? 'post-action-liked' : ''"
+      (onClick)="onLike.emit()"
+    >
+      <ui-icon
+        name="heart"
+        [size]="16"
+        [color]="liked() ? 'var(--color-danger)' : 'currentColor'"
+        [className]="liked() ? 'icon-liked' : ''"
+      />
+
+      {{ post().likes.length || '' }}
+    </ui-button>
+
+    <ui-button
+      variant="light"
+      size="sm"
+      [className]="showComments() ? 'post-action-active' : ''"
+      (onClick)="onToggleComments.emit()"
+    >
+      <ui-icon name="message-circle" [size]="16" />
+      {{ post().commentCount || '' }}
+    </ui-button>
+  </div>
+
+  @if (showComments()) {
+    <div class="post-comments">
+      @if (comments().length > 0) {
+        <div class="post-comments-list">
+          @for (comment of comments(); track comment.id) {
+            <div class="post-comment">
+              @if (comment.authorAvatar) {
+                <img
+                  [src]="comment.authorAvatar"
+                  [alt]="comment.authorName"
+                  class="post-comment-avatar"
+                />
+              } @else {
+                <div class="post-comment-avatar-placeholder">
+                  <ui-icon name="user" [size]="14" />
+                </div>
+              }
+              <div class="post-comment-body">
+                <span class="post-comment-author">{{ comment.authorName }}</span>
+                <span class="post-comment-text">{{ comment.content }}</span>
+              </div>
+            </div>
+          }
+        </div>
+      }
+
+      <div class="post-comment-form">
+        <input
+          class="post-comment-input"
+          type="text"
+          placeholder="Escribí un comentario... (Ctrl+Enter)"
+          [formControl]="commentControl"
+          (keydown)="onCommentKeyDown($event)"
+        />
+        <ui-button
+          variant="primary"
+          size="icon-sm"
+          [disabled]="commentControl.invalid"
+          (onClick)="submitComment()"
+        >
+          <ui-icon name="send" [size]="14" />
+        </ui-button>
+      </div>
+    </div>
+  }
+</article>

@@ -1,10 +1,10 @@
-@utility dropdown {
+.dropdown {
   position: relative;
   display: inline-block;
   width: 100%;
 }
 
-@utility dropdown-button {
+.dropdown-button {
   color: inherit;
   background-color: transparent;
   border: none;
@@ -31,14 +31,14 @@
   }
 }
 
-@utility dropdown-label {
+.dropdown-label {
   display: block;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-@utility dropdown-icon {
+.dropdown-icon {
   transition: transform 0.2s ease;
   opacity: 0.6;
   width: 1rem;
@@ -48,11 +48,11 @@
   justify-content: center;
 }
 
-@utility dropdown-icon-rotated {
+.dropdown-icon-rotated {
   transform: rotate(180deg);
 }
 
-@utility dropdown-menu {
+.dropdown-menu {
   position: absolute;
   z-index: 50;
   margin-top: 0.25rem;
@@ -66,7 +66,7 @@
   animation: var(--animate-fade-in), var(--animate-zoom-in);
 }
 
-@utility dropdown-options {
+.dropdown-options {
   padding: 0.25rem;
   overflow-y: auto;
   min-height: 2.5rem;
@@ -77,7 +77,7 @@
   gap: 0.25rem;
 }
 
-@utility dropdown-option {
+.dropdown-option {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -105,34 +105,34 @@
   }
 }
 
-@utility dropdown-option-selected {
+.dropdown-option-selected {
   background-color: var(--color-primary) !important;
   color: var(--color-primary-foreground) !important;
 }
 
-@utility dropdown-option-focused {
+.dropdown-option-focused {
   outline: 2px solid var(--color-ring);
   outline-offset: -2px;
 }
 
-@utility dropdown-option-text {
+.dropdown-option-text {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-@utility dropdown-option-empty {
+.dropdown-option-empty {
   .dropdown-option-text {
     color: oklch(64% 0 0);
   }
 }
 
-@utility dropdown-chevron {
+.dropdown-chevron {
   width: 16px;
   height: 16px;
 }
 
-@utility dropdown-check {
+.dropdown-check {
   width: 1rem;
   height: 1rem;
   flex-shrink: 0;

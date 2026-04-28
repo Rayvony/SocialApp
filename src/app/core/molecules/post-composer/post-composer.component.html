@@ -1,0 +1,32 @@
+<div class="composer" [class.composer-focused]="focused()">
+  <div class="composer-top">
+    @if (userAvatar()) {
+      <img [src]="userAvatar()" [alt]="userName()" class="composer-avatar" />
+    } @else {
+      <div class="composer-avatar-placeholder">
+        <ui-icon name="user" [size]="20" />
+      </div>
+    }
+    <textarea
+      class="composer-textarea"
+      [value]="content()"
+      [placeholder]="'¿Qué estás pensando, ' + userName() + '?'"
+      rows="1"
+      maxlength="320"
+      (input)="onInput($any($event.target).value)"
+      (focus)="onFocus()"
+      (blur)="onBlur()"
+      (keydown)="onKeyDown($event)"
+    ></textarea>
+  </div>
+
+  @if (focused()) {
+    <div class="composer-bottom">
+      <span [class]="charsClass">{{ charsLeft }}</span>
+      <ui-button variant="primary" size="sm" [disabled]="!canSubmit" (onClick)="submit()">
+        <ui-icon name="send" [size]="15" />
+        Publicar
+      </ui-button>
+    </div>
+  }
+</div>

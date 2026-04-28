@@ -1,0 +1,55 @@
+.btn {
+  --btn-bg: var(--color-primary);
+  --btn-fg: var(--color-primary-foreground);
+  --btn-height: 2.5rem;
+  --btn-px: 1rem;
+  --btn-py: 0.5rem;
+  --btn-bg-hover: color-mix(in oklch, var(--btn-bg) 88%, black);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  white-space: nowrap;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: var(--radius);
+  outline: 1px solid var(--btn-bg);
+  outline-offset: -0.125rem;
+  min-height: var(--btn-height);
+  padding: var(--btn-py) var(--btn-px);
+  color: var(--btn-fg);
+  background-color: var(--btn-bg);
+  cursor: pointer;
+  transition: 150ms;
+}
+
+.btn-primary {
+  --btn-bg: var(--color-primary);
+  --btn-fg: var(--color-primary-foreground);
+}
+
+.btn-secondary {
+  --btn-bg: var(--color-secondary);
+  --btn-fg: var(--color-secondary-foreground);
+}
+
+.btn-md {
+  --btn-height: 2.5rem;
+  --btn-px: 1rem;
+  --btn-py: 0.5rem;
+}
+
+.btn-sm {
+  --btn-height: 1.75rem;
+  --btn-px: 0.5rem;
+  --btn-py: 0.25rem;
+}
+
+.btn-lg {
+  --btn-height: 3rem;
+  --btn-px: 1.25rem;
+  --btn-py: 0.75rem;
+}

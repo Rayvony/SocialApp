@@ -4,3 +4,5 @@ export * from './input/input';
 export * from './select/select';
 export * from './spinner/spinner';
 export * from './separator/separator';
+export * from './toast/toast';
+export * from './icon/icon';

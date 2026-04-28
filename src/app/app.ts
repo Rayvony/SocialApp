@@ -1,13 +1,25 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import { ToastComponent } from '@core/components/toast/toast';
+import { UiStore } from '@store/index';
+import { ToastComponent } from '@core/ui/components';
 
 @Component({
   selector: 'app-root',
+  standalone: true,
   imports: [RouterOutlet, ToastComponent],
-  templateUrl: './app.html',
-  styleUrl: './app.css',
+  template: `
+    <router-outlet />
+    <ui-toast />
+  `,
 })
-export class App {
-  protected readonly title = signal('it-rock');
+export class App implements OnInit {
+  private uiStore = inject(UiStore);
+  private platformId = inject(PLATFORM_ID);
+
+  ngOnInit() {
+    if (isPlatformBrowser(this.platformId)) {
+      this.uiStore.setTheme(this.uiStore.theme());
+    }
+  }
 }
