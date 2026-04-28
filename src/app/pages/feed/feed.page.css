@@ -88,6 +88,9 @@
   backdrop-filter: blur(8px);
   border-bottom: 1px solid color-mix(in oklch, var(--color-border) 50%, transparent);
   height: var(--header-size);
+  box-shadow:
+    0 4px 6px -1px oklch(0 0 0 / 10%),
+    0 2px 4px -2px oklch(0 0 0 / 10%);
 }
 
 .feed-header-user {

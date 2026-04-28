@@ -25,11 +25,12 @@
   --color-popover: oklch(1 0 0);
   --color-popover-foreground: oklch(0.141 0.005 285.823);
   --color-control-disabled: oklch(0 0 0 / 25%);
+  --btn-hover-mix: black;
 
-  --color-primary: oklch(47.141% 0.20668 335.252);
+  --color-primary: oklab(47.141% 0.1877 -0.08652);
   --color-primary-foreground: oklch(97.172% 0.00524 248.361);
-  --color-secondary: oklch(23.711% 0.05214 261.211);
-  --color-secondary-foreground: oklch(97.172% 0.00524 248.361);
+  --color-secondary: oklch(94.309% 0.00011 271.152);
+  --color-secondary-foreground: oklab(47.141% 0.1877 -0.08652);
   --color-tertiary: oklch(44.934% 0.08663 226.842);
   --color-tertiary-foreground: oklch(97.172% 0.00524 248.361);
   --color-success: oklch(55.277% 0.12899 151.602);
@@ -81,6 +82,10 @@
   --color-accordion-background: oklch(0.21 0.006 285.885);
   --color-accordion-header: color-mix(in oklch, oklch(0.21 0.006 285.885) 70%, oklch(0 0 0) 30%);
   --color-accordion-border: color-mix(in oklch, oklch(0.21 0.006 285.885) 70%, oklch(0 0 0) 30%);
+
+  --color-secondary: oklch(0.145 0 0);
+  --color-secondary-foreground: oklab(47.141% 0.1877 -0.08652);
+  --btn-hover-mix: white;
 
   .firma-brand {
     filter: brightness(0) invert(1);

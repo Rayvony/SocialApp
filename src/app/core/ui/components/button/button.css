@@ -4,7 +4,7 @@
   --btn-height: 2.5rem;
   --btn-px: 1rem;
   --btn-py: 0.5rem;
-  --btn-bg-hover: color-mix(in oklch, var(--btn-bg) 88%, black);
+  --btn-bg-hover: color-mix(in oklch, var(--btn-bg) 88%, var(--btn-hover-mix));
 
   display: inline-flex;
   align-items: center;
@@ -17,7 +17,6 @@
   border: none;
   border-radius: var(--radius);
   outline: 1px solid var(--btn-bg);
-  outline-offset: -0.125rem;
   min-height: var(--btn-height);
   padding: var(--btn-py) var(--btn-px);
   color: var(--btn-fg);

@@ -34,7 +34,11 @@
         }
         <ui-button variant="primary" size="sm" [disabled]="!canSubmit" (onClick)="submit()">
           <ui-icon name="send" [size]="15" />
-          Publicar
+          @if (mode() === 'edit') {
+            Editar
+          } @else {
+            Publicar
+          }
         </ui-button>
       </div>
     </div>
