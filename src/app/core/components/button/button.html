@@ -1,0 +1,12 @@
+<button
+  [id]="id()"
+  [name]="name()"
+  [attr.aria-label]="label()"
+  [type]="type()"
+  [disabled]="disabled()"
+  [class]="classes"
+  [ngStyle]="styles()"
+  (click)="onClick.emit($event)"
+>
+  <ng-content />
+</button>

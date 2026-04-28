@@ -1,0 +1,1 @@
+export const DEFAULT_TOAST_TIMER = 4000;

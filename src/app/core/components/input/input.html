@@ -1,0 +1,16 @@
+<input
+  autocomplete="off"
+  [id]="id()"
+  [name]="name()"
+  [type]="type()"
+  [formControl]="control()"
+  [placeholder]="placeholder()"
+  [class]="'input ' + className()"
+  [attr.aria-invalid]="invalid() ? 'true' : null"
+  [attr.aria-disabled]="disabled() ? 'true' : null"
+  [ngStyle]="styles()"
+  (change)="handleChange($event)"
+  (blur)="handleBlur($event)"
+  (focus)="handleFocus($event)"
+  (keydown)="handleKeyDown($event)"
+/>

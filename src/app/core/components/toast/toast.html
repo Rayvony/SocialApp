@@ -1,0 +1,35 @@
+<div class="toast-container">
+  @for (msg of messages(); track msg.id) {
+    <div
+      [class]="severityClass(msg.severity)"
+      (mouseenter)="pauseTimer(msg.id!)"
+      (mouseleave)="resumeTimer(msg.id!)"
+    >
+      @switch (msg.severity) {
+        @case ('success') {
+          <i class="pi pi-check-circle toast-icon"></i>
+        }
+        @case ('info') {
+          <i class="pi pi-info-circle toast-icon"></i>
+        }
+        @case ('warn') {
+          <i class="pi pi-exclamation-triangle toast-icon"></i>
+        }
+        @case ('danger') {
+          <i class="pi pi-times-circle toast-icon"></i>
+        }
+      }
+
+      <div class="toast-data">
+        <div class="toast-summary">{{ msg.summary }}</div>
+        @if (msg.detail) {
+          <div class="toast-detail">{{ msg.detail }}</div>
+        }
+      </div>
+
+      <button class="toast-close" (click)="remove(msg.id!)">
+        <i class="pi pi-times toast-close-icon"></i>
+      </button>
+    </div>
+  }
+</div>
