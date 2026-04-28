@@ -1,0 +1,42 @@
+@layer components {
+  .separator {
+    --separator-color: var(--border);
+    --separator-thickness: 1px;
+    --separator-margin: calc(var(--spacing) * 4);
+
+    background-color: var(--separator-color);
+    flex-shrink: 0;
+  }
+
+  .separator-horizontal {
+    width: 100%;
+    height: var(--separator-thickness);
+    margin-block: var(--separator-margin);
+  }
+
+  .separator-vertical {
+    height: 100%;
+    width: var(--separator-thickness);
+    margin-inline: var(--separator-margin);
+  }
+
+  .separator-muted {
+    --separator-color: color-mix(in oklch, var(--border) 50%, transparent);
+  }
+
+  .separator-strong {
+    --separator-color: color-mix(in oklch, var(--border) 80%, black);
+  }
+
+  .separator-sm {
+    --separator-thickness: 1px;
+  }
+
+  .separator-md {
+    --separator-thickness: 2px;
+  }
+
+  .separator-lg {
+    --separator-thickness: 3px;
+  }
+}
