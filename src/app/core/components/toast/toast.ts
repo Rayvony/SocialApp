@@ -1,7 +1,8 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DEFAULT_TOAST_TIMER } from '@core/constants';
 import { ToastMessage, ToastService } from '@core/services';
+import { LucideAngularModule } from 'lucide-angular';
 
 interface ToastTimer {
   timeout: ReturnType<typeof setTimeout>;
@@ -11,8 +12,7 @@ interface ToastTimer {
 
 @Component({
   selector: 'ui-toast',
-  standalone: true,
-  imports: [],
+  imports: [LucideAngularModule],
   templateUrl: './toast.html',
   styleUrl: './toast.css',
 })
@@ -48,6 +48,7 @@ export class ToastComponent {
   resumeTimer(id: number) {
     const remaining = this.pausedTimers.get(id);
     if (remaining == null) return;
+
     this.startTimer(id, remaining);
     this.pausedTimers.delete(id);
   }
