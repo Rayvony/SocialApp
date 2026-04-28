@@ -32,7 +32,17 @@ function saveToStorage(state: Pick<UiState, 'theme' | 'sidebarOpen'>) {
 function applyTheme(theme: Theme) {
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
   const isDark = theme === 'dark' || (theme === 'system' && prefersDark);
-  document.documentElement.classList.toggle('dark', isDark);
+
+  const root = document.documentElement;
+  root.classList.add('disable-transitions');
+
+  root.classList.toggle('dark', isDark);
+
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      root.classList.remove('disable-transitions');
+    });
+  });
 }
 
 const { theme, sidebarOpen } = loadFromStorage();
