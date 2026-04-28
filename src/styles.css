@@ -62,117 +62,6 @@
   --animate-fade-in-scale: fadeIn 0.15s ease-out forwards;
 }
 
-@theme {
-  --font-family-sans: Nunito, 'Inter', 'Inter Fallback', system-ui, -apple-system, sans-serif;
-  --spacing: 0.25rem;
-
-  --radius: 0.4rem;
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --radius-2xl: calc(var(--radius) + 8px);
-
-  --color-light: oklch(97.172% 0.00524 248.361);
-  --color-dark: oklch(25.326% 0.04737 223.506);
-  --color-neutral: oklch(93.771% 0.00873 248.2);
-  --color-muted: oklch(87.923% 0.01349 251.721);
-  --color-border: oklch(0.92 0.004 286.32);
-  --color-ring: oklch(0.841 0.238 128.85);
-
-  --color-background: oklch(94.309% 0.00011 271.152);
-  --color-foreground: oklch(0.145 0 0);
-  --color-card: oklch(1 0 0);
-  --color-card-foreground: oklch(0.141 0.005 285.823);
-  --color-popover: oklch(1 0 0);
-  --color-popover-foreground: oklch(0.141 0.005 285.823);
-  --color-control-disabled: oklch(0 0 0 / 25%);
-
-  --color-primary: oklch(54.095% 0.16315 260.935);
-  --color-primary-foreground: oklch(97.172% 0.00524 248.361);
-  --color-secondary: oklch(23.711% 0.05214 261.211);
-  --color-secondary-foreground: oklch(97.172% 0.00524 248.361);
-  --color-tertiary: oklch(44.934% 0.08663 226.842);
-  --color-tertiary-foreground: oklch(97.172% 0.00524 248.361);
-  --color-success: oklch(55.277% 0.12899 151.602);
-  --color-success-foreground: oklch(97.172% 0.00524 248.361);
-  --color-danger: oklch(55.938% 0.18996 25.847);
-  --color-danger-foreground: oklch(97.172% 0.00524 248.361);
-  --color-warning: oklch(76.523% 0.17515 62.566);
-  --color-warning-foreground: oklch(25.326% 0.04737 223.506);
-  --color-info: oklch(57.844% 0.11198 227.255);
-  --color-info-foreground: oklch(97.172% 0.00524 248.361);
-
-  --color-sidebar: oklch(97.172% 0.00524 248.361);
-  --color-sidebar-foreground: oklch(0.145 0 0);
-  --color-sidebar-primary: oklch(54.095% 0.16315 260.935);
-  --color-sidebar-primary-foreground: oklch(97.172% 0.00524 248.361);
-  --color-sidebar-accent: oklch(0.967 0.001 286.375);
-  --color-sidebar-accent-foreground: oklch(0.21 0.006 285.885);
-  --color-sidebar-border: oklch(83.902% 0.0001 271.152);
-  --color-sidebar-ring: oklch(54.095% 0.16315 260.935);
-
-  --color-accordion-background: oklch(1 0 0);
-  --color-accordion-header: color-mix(in oklch, oklch(1 0 0) 85%, oklch(0 0 0) 15%);
-  --color-accordion-border: color-mix(in oklch, oklch(1 0 0) 85%, oklch(0 0 0) 15%);
-
-  --animate-fade-in-up: fade-in-up 0.3s ease-out;
-  --animate-fade-in: fade-in 0.15s ease-out;
-  --animate-fade-out: fade-out 0.15s ease-out;
-  --animate-zoom-in: zoom-in 0.15s ease-out;
-  --animate-zoom-out: zoom-out 0.15s ease-out;
-  --animate-fade-in-scale: fadeIn 0.15s ease-out forwards;
-
-  @keyframes fade-in-up {
-    from {
-      opacity: 0;
-      transform: translateY(-10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  @keyframes fadeIn {
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-  @keyframes fade-in {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-  @keyframes fade-out {
-    from {
-      opacity: 1;
-    }
-    to {
-      opacity: 0;
-    }
-  }
-  @keyframes zoom-in {
-    from {
-      transform: scale(0.95);
-    }
-    to {
-      transform: scale(1);
-    }
-  }
-  @keyframes zoom-out {
-    from {
-      transform: scale(1);
-    }
-    to {
-      transform: scale(0.95);
-    }
-  }
-}
-
 @variant dark (&:where(.dark, .dark *));
 
 .dark {
@@ -251,6 +140,16 @@ body {
 }
 .zoom-in-95 {
   transform: scale(0.95);
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .pi {

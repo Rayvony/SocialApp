@@ -20,6 +20,7 @@ const STORAGE_KEY = 'comments_data';
 
 function loadFromStorage(): Comment[] {
   try {
+    if (typeof localStorage === 'undefined') return MOCK_COMMENTS;
     const raw = localStorage.getItem(STORAGE_KEY);
     return raw ? JSON.parse(raw) : MOCK_COMMENTS;
   } catch {
@@ -29,6 +30,7 @@ function loadFromStorage(): Comment[] {
 
 function saveToStorage(comments: Comment[]) {
   try {
+    if (typeof localStorage === 'undefined') return;
     localStorage.setItem(STORAGE_KEY, JSON.stringify(comments));
   } catch {}
 }

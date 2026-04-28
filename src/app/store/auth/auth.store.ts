@@ -10,6 +10,7 @@ const initialState: AuthState = {
 
 function loadFromStorage(): AuthUser | null {
   try {
+    if (typeof localStorage === 'undefined') return null;
     const raw = localStorage.getItem('auth_user');
     return raw ? JSON.parse(raw) : null;
   } catch {
@@ -18,6 +19,7 @@ function loadFromStorage(): AuthUser | null {
 }
 
 function saveToStorage(user: AuthUser | null) {
+  if (typeof localStorage === 'undefined') return;
   if (user) {
     localStorage.setItem('auth_user', JSON.stringify(user));
   } else {
@@ -55,7 +57,7 @@ export const AuthStore = signalStore(
     async loginWithEmail(email: string, password: string): Promise<void> {
       patchState(store, { loading: true, error: null });
 
-      await delay(600); // simula latencia
+      await delay(700); // delay para simular la latencia
 
       const found = MOCK_USERS.find((u) => u.email === email && u.password === password);
 
@@ -75,11 +77,11 @@ export const AuthStore = signalStore(
     async loginWithGoogle(): Promise<void> {
       patchState(store, { loading: true, error: null });
 
-      await delay(800); // simula OAuth flow
+      await delay(800);
 
       const user: AuthUser = {
         id: 'google-' + Math.random().toString(36).slice(2, 7),
-        name: 'Usuario Google',
+        name: 'Juan Carlos Google',
         email: 'google-user@gmail.com',
         avatar: 'https://api.dicebear.com/9.x/avataaars/svg?seed=google',
         provider: 'google',

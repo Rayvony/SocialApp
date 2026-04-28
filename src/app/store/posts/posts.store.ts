@@ -24,6 +24,7 @@ const STORAGE_KEY = 'posts_data';
 
 function loadFromStorage(): Post[] {
   try {
+    if (typeof localStorage === 'undefined') return MOCK_POSTS;
     const raw = localStorage.getItem(STORAGE_KEY);
     return raw ? JSON.parse(raw) : MOCK_POSTS;
   } catch {
@@ -33,6 +34,7 @@ function loadFromStorage(): Post[] {
 
 function saveToStorage(posts: Post[]) {
   try {
+    if (typeof localStorage === 'undefined') return;
     localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
   } catch {}
 }

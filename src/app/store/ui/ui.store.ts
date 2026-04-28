@@ -14,6 +14,7 @@ const STORAGE_KEY = 'ui_preferences';
 
 function loadFromStorage(): Pick<UiState, 'theme' | 'sidebarOpen'> {
   try {
+    if (typeof localStorage === 'undefined') return { theme: 'system', sidebarOpen: true };
     const raw = localStorage.getItem(STORAGE_KEY);
     return raw ? JSON.parse(raw) : { theme: 'system', sidebarOpen: true };
   } catch {
@@ -23,6 +24,7 @@ function loadFromStorage(): Pick<UiState, 'theme' | 'sidebarOpen'> {
 
 function saveToStorage(state: Pick<UiState, 'theme' | 'sidebarOpen'>) {
   try {
+    if (typeof localStorage === 'undefined') return;
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
   } catch {}
 }

@@ -59,11 +59,10 @@
           [disabled]="authStore.loading()"
         >
           @if (authStore.loading()) {
-            <ui-icon name="loader-circle" [size]="18" className="animate-spin" />
-            Iniciando sesión...
+            <ui-icon name="loader-circle" [size]="18" className="spin" />
           } @else {
-            <ui-icon name="log-in" [size]="18" />
             Iniciar sesión
+            <ui-icon name="log-in" [size]="18" />
           }
         </ui-button>
       </form>

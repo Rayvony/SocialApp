@@ -41,7 +41,7 @@
         [className]="liked() ? 'icon-liked' : ''"
       />
 
-      {{ post().likes.length || '' }}
+      {{ post().likes.length || 0 }}
     </ui-button>
 
     <ui-button
@@ -51,7 +51,7 @@
       (onClick)="onToggleComments.emit()"
     >
       <ui-icon name="message-circle" [size]="16" />
-      {{ post().commentCount || '' }}
+      {{ post().commentCount || 0 }}
     </ui-button>
   </div>
 
