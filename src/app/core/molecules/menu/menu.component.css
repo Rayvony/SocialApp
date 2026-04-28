@@ -1,0 +1,126 @@
+.generic-menu {
+  --menu-bg: color-mix(in oklch, var(--color-background) 92%, var(--color-foreground) 8%);
+  --menu-fg: var(--sidebar-foreground, var(--foreground));
+  --menu-border: var(--color-border);
+  --menu-hover: var(--sidebar-accent, color-mix(in oklch, var(--foreground) 6%, transparent));
+  --menu-hover-fg: var(--sidebar-primary, var(--primary));
+  --menu-shadow: color-mix(in oklch, var(--foreground) 18%, transparent);
+  --menu-radius: var(--radius);
+  --menu-arrow-size: 10px;
+
+  position: relative;
+  display: inline-block;
+}
+
+.generic-menu .menu-trigger button {
+  min-height: 40px;
+  font-weight: 500;
+}
+
+.generic-menu .trigger-content,
+.generic-menu .menu-item-content {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.generic-menu .trigger-icon {
+  transition: transform 200ms ease;
+}
+
+.generic-menu .menu-list,
+.generic-menu .submenu-list {
+  margin: 0;
+  list-style: none;
+  padding: 0.5rem;
+
+  min-width: 220px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+
+  background: var(--menu-bg);
+  border: 1px solid var(--menu-border);
+  border-radius: var(--menu-radius);
+  box-shadow: 0 10px 30px -12px var(--menu-shadow);
+}
+
+.generic-menu .menu-list {
+  position: absolute;
+  top: calc(100% + 0.8rem);
+  right: 0;
+  z-index: 1000;
+}
+
+.generic-menu .menu-list::before {
+  content: '';
+  position: absolute;
+  top: calc(var(--menu-arrow-size) * -1);
+  right: 16px;
+
+  width: 0;
+  height: 0;
+
+  border-left: var(--menu-arrow-size) solid transparent;
+  border-right: var(--menu-arrow-size) solid transparent;
+  border-bottom: var(--menu-arrow-size) solid var(--menu-border);
+}
+
+.generic-menu .submenu-list {
+  position: absolute;
+  top: 0;
+  left: calc(100% + 0.4rem);
+  z-index: 1001;
+}
+
+.generic-menu .menu-item {
+  position: relative;
+}
+
+.generic-menu .menu-item.disabled {
+  opacity: 0.6;
+}
+
+.generic-menu .menu-item-button {
+  border: none;
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+  min-height: 40px;
+  padding: 0.4rem 0.6rem;
+
+  color: var(--menu-fg);
+  background-color: var(--menu-bg);
+
+  border-radius: 0.5rem;
+
+  font-size: 1rem;
+  font-weight: 500;
+
+  outline: 0.125rem solid transparent;
+  cursor: pointer;
+
+  transition:
+    color 200ms ease,
+    outline-color 200ms ease,
+    background-color 200ms ease;
+}
+
+.generic-menu .menu-item-button:hover:not(:disabled) {
+  outline-color: var(--menu-hover-fg);
+  color: var(--menu-hover-fg);
+}
+
+.generic-menu .menu-item-button:disabled {
+  cursor: not-allowed;
+}
+
+.generic-menu.open .trigger-icon {
+  transform: rotateX(180deg);
+  transform-origin: center;
+}

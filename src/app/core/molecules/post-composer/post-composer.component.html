@@ -1,11 +1,13 @@
 <div class="composer" [class.composer-focused]="focused()">
   <div class="composer-top">
-    @if (userAvatar()) {
-      <img [src]="userAvatar()" [alt]="userName()" class="composer-avatar" />
-    } @else {
-      <div class="composer-avatar-placeholder">
-        <ui-icon name="user" [size]="20" />
-      </div>
+    @if (mode() === 'create') {
+      @if (userAvatar()) {
+        <img [src]="userAvatar()" [alt]="userName()" class="composer-avatar" />
+      } @else {
+        <div class="composer-avatar-placeholder">
+          <ui-icon name="user" [size]="20" />
+        </div>
+      }
     }
     <textarea
       class="composer-textarea"
@@ -23,10 +25,18 @@
   @if (focused()) {
     <div class="composer-bottom">
       <span [class]="charsClass">{{ charsLeft }}</span>
-      <ui-button variant="primary" size="sm" [disabled]="!canSubmit" (onClick)="submit()">
-        <ui-icon name="send" [size]="15" />
-        Publicar
-      </ui-button>
+      <div class="composer-buttons">
+        @if (mode() === 'edit') {
+          <ui-button variant="primary" size="sm" (onClick)="cancel()">
+            <ui-icon name="x" [size]="15" />
+            Cancelar
+          </ui-button>
+        }
+        <ui-button variant="primary" size="sm" [disabled]="!canSubmit" (onClick)="submit()">
+          <ui-icon name="send" [size]="15" />
+          Publicar
+        </ui-button>
+      </div>
     </div>
   }
 </div>

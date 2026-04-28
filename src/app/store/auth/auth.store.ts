@@ -78,9 +78,10 @@ export const AuthStore = signalStore(
       patchState(store, { loading: true, error: null });
 
       await delay(800);
+      const GOOGLE_USER_ID = 'google-user-1';
 
       const user: AuthUser = {
-        id: 'google-' + Math.random().toString(36).slice(2, 7),
+        id: GOOGLE_USER_ID,
         name: 'Juan Carlos Google',
         email: 'google-user@gmail.com',
         avatar: 'https://api.dicebear.com/9.x/avataaars/svg?seed=google',

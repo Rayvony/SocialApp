@@ -90,13 +90,13 @@
           <app-post-card
             [post]="post"
             [liked]="isLiked(post)"
-            [isOwner]="isOwner(post)"
             [showComments]="expandedPostId() === post.id"
             [comments]="commentsForPost(post.id)"
             (onLike)="onToggleLike(post.id)"
             (onToggleComments)="onToggleComments(post.id)"
             (onComment)="onCommentAdded(post.id, $event)"
             (onDelete)="onDeletePost(post.id)"
+            (onSaveEdit)="onEditPost($event)"
           />
         }
       </div>

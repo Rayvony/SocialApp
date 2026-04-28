@@ -32,7 +32,7 @@ export class FeedPage {
     const user = this.user;
     if (!user) return;
     this.postsStore.addPost(content, user);
-    this.uiStore.success('Post publicado', 'Tu publicación ya está en el feed');
+    this.uiStore.success('Post publicado', 'Tu publicación ya está en el feed.');
   }
 
   onToggleLike(postId: string) {
@@ -56,7 +56,11 @@ export class FeedPage {
     const user = this.user;
     if (!user) return;
     this.postsStore.deletePost(postId, user.id);
-    this.uiStore.info('Post eliminado');
+    this.uiStore.info('Post eliminado', 'se eliminó correctamente.');
+  }
+
+  onEditPost(event: { postId: string; content: string }) {
+    this.postsStore.editPost(event.postId, event.content);
   }
 
   onLogout() {

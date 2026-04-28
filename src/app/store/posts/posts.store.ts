@@ -154,6 +154,19 @@ export const PostsStore = signalStore(
       patchState(store, { posts: updated });
     },
 
+    editPost(postId: string, content: string): void {
+      const updated = store
+        .posts()
+        .map((post) => (post.id === postId ? { ...post, content: content.trim() } : post));
+
+      patchState(store, () => ({
+        posts: [...updated],
+      }));
+
+      console.log(updated);
+      saveToStorage(updated);
+    },
+
     toggleLike(postId: string, userId: string): void {
       const updated = store.posts().map((post) => {
         if (post.id !== postId) return post;

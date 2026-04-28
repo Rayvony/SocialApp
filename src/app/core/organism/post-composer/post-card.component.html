@@ -15,13 +15,22 @@
     </div>
 
     @if (isOwner()) {
-      <ui-button variant="light" size="icon-sm" (onClick)="onDelete.emit()">
-        <ui-icon name="trash-2" [size]="15" />
-      </ui-button>
+      <app-menu buttonLabel="" buttonIcon="ellipsis" [items]="seeMoreMenu()" />
     }
   </div>
 
-  <p class="post-content">{{ post().content }}</p>
+  @if (isEditing()) {
+    <app-post-composer
+      [userName]="authStore.currentUser()?.name ?? ''"
+      [userAvatar]="authStore.currentUser()?.avatar"
+      [mode]="'edit'"
+      [initialContent]="post().content"
+      (onSave)="saveEdit($event)"
+      (onCancel)="cancelEdit()"
+    />
+  } @else {
+    <p class="post-content">{{ post().content }}</p>
+  }
 
   @if (post().imageUrl) {
     <img [src]="post().imageUrl" alt="Post image" class="post-image" />

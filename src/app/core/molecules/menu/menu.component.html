@@ -1,0 +1,64 @@
+<div class="generic-menu" (clickOutside)="close()" [class.open]="open()">
+  <ui-button
+    size="md"
+    variant="light"
+    className="menu-trigger"
+    [disabled]="disabled()"
+    (onClick)="toggle()"
+  >
+    <div class="trigger-content">
+      @if (buttonIcon()) {
+        <ui-icon [name]="buttonIcon()!" />
+      }
+      @if (buttonLabel().length) {
+        <span>{{ buttonLabel() }}</span>
+      }
+    </div>
+
+    <i class="pi pi-chevron-down trigger-icon"></i>
+  </ui-button>
+
+  @if (open()) {
+    <ul class="menu-list">
+      @for (item of mappedItems(); track item.id) {
+        <ng-container
+          [ngTemplateOutlet]="menuItemTpl"
+          [ngTemplateOutletContext]="{ $implicit: item }"
+        />
+      }
+    </ul>
+  }
+
+  <ng-template #menuItemTpl let-item>
+    <li class="menu-item" [class.disabled]="item.disabled">
+      <button
+        type="button"
+        class="menu-item-button"
+        [disabled]="item.disabled"
+        (click)="handleItemClick(item)"
+      >
+        <div class="menu-item-content">
+          @if (item.icon) {
+            <ui-icon [name]="item.icon" />
+          }
+          <span>{{ item.label }}</span>
+        </div>
+
+        @if (item.children?.length) {
+          <i class="pi pi-chevron-right"></i>
+        }
+      </button>
+
+      @if (item.children?.length && isOpen(item.parentTree)) {
+        <ul class="submenu-list">
+          @for (child of item.children; track child.id) {
+            <ng-container
+              [ngTemplateOutlet]="menuItemTpl"
+              [ngTemplateOutletContext]="{ $implicit: child }"
+            />
+          }
+        </ul>
+      }
+    </li>
+  </ng-template>
+</div>

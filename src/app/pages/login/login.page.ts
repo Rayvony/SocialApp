@@ -71,7 +71,7 @@ export class LoginPage {
     await this.authStore.loginWithGoogle();
 
     if (this.authStore.isAuthenticated()) {
-      this.uiStore.success('¡Bienvenido!', 'Sesión iniciada con Google');
+      this.uiStore.success('¡Bienvenido!', 'Sesión iniciada con Google.');
       this.router.navigate(['/feed']);
     }
   }
