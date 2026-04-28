@@ -85,14 +85,14 @@
   border-top: 1px solid color-mix(in oklch, var(--color-border) 60%, transparent);
 }
 
-.post-action-liked {
-  color: var(--color-danger) !important;
-  background-color: color-mix(in oklch, var(--color-danger) 10%, transparent) !important;
-}
-
 .post-action-active {
   color: var(--color-primary) !important;
   background-color: color-mix(in oklch, var(--color-primary) 10%, transparent) !important;
+}
+
+.icon-liked path {
+  fill: var(--color-danger);
+  stroke: var(--color-danger);
 }
 
 .post-comments {

@@ -1,7 +1,7 @@
 <div class="feed-layout">
   <aside class="feed-sidebar" [class.feed-sidebar-open]="uiStore.sidebarOpen()">
     <div class="feed-sidebar-brand">
-      <ui-icon name="users" [size]="28" className="text-primary" />
+      <img src="icons/firma.svg" height="28" width="28" class="text-primary" />
       @if (uiStore.sidebarOpen()) {
         <span class="feed-sidebar-title">SocialApp</span>
       }
@@ -57,8 +57,12 @@
   <main class="feed-main">
     <header class="feed-header">
       <ui-button variant="light" size="icon" (onClick)="uiStore.toggleSidebar()">
-        <ui-icon name="panel-left" [size]="20" />
+        <ui-icon
+          [name]="uiStore.sidebarOpen() ? 'panel-left-close' : 'panel-left-open'"
+          [size]="20"
+        />
       </ui-button>
+
       <div class="feed-header-user">
         <span class="feed-header-name">{{ user?.name }}</span>
         @if (user?.avatar) {

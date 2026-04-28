@@ -26,6 +26,10 @@
   transition: 150ms;
 }
 
+.btn:hover {
+  background-color: var(--btn-bg-hover);
+}
+
 .btn-primary {
   --btn-bg: var(--color-primary);
   --btn-fg: var(--color-primary-foreground);

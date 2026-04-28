@@ -38,7 +38,7 @@
         name="heart"
         [size]="16"
         [color]="liked() ? 'var(--color-danger)' : 'currentColor'"
-        [className]="liked() ? 'icon-liked' : ''"
+        [fill]="liked() ? 'var(--color-danger)' : 'none'"
       />
 
       {{ post().likes.length || 0 }}

@@ -10,8 +10,10 @@ import { LucideAngularModule } from 'lucide-angular';
       [name]="name()"
       [size]="size()"
       [strokeWidth]="strokeWidth()"
-      [color]="color()"
+      [absoluteStrokeWidth]="true"
       [class]="className()"
+      [style.color]="color()"
+      [style.fill]="fill()"
     />
   `,
   host: { class: 'ignore-host' },
@@ -21,5 +23,6 @@ export class IconComponent {
   readonly size = input<number>(20);
   readonly strokeWidth = input<number>(1.75);
   readonly className = input<string>('');
-  readonly color = input<string>('currentColor');
+  readonly color = input<string>('');
+  readonly fill = input<string>('none');
 }
