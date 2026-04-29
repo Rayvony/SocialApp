@@ -1,4 +1,4 @@
-import { Component, inject, computed, signal, PLATFORM_ID } from '@angular/core';
+import { Component, inject, computed, signal, PLATFORM_ID, effect } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -8,6 +8,8 @@ import { UiStore } from '@store/ui/ui.store';
 import { CommentsStore } from '@store/comments/comments.store';
 import { ButtonComponent, CardComponent, IconComponent } from '@core/ui/components';
 import { PostCardComponent } from '@core/organism/index';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-profile-page',
@@ -28,10 +30,10 @@ export class ProfilePage {
 
   readonly editing = signal(false);
   readonly expandedPostId = signal<string | null>(null);
-
-  readonly profileId = computed(() => this.route.snapshot.paramMap.get('id') ?? '');
+  readonly profileId = toSignal(this.route.paramMap.pipe(map((params) => params.get('id') ?? '')), {
+    initialValue: '',
+  });
   readonly isOwn = computed(() => this.profileId() === this.authStore.currentUser()?.id);
-
   readonly profileUser = computed(() => {
     const id = this.profileId();
     const current = this.authStore.currentUser();
@@ -64,6 +66,17 @@ export class ProfilePage {
     nonNullable: true,
     validators: [Validators.required, Validators.minLength(2)],
   });
+
+  constructor() {
+    effect(() => {
+      this.profileId();
+
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    });
+  }
 
   startEditing() {
     this.nameControl.setValue(this.profileUser()?.name ?? '');
