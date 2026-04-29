@@ -1,14 +1,6 @@
 import { signalStore, withState, withComputed, withMethods, patchState } from '@ngrx/signals';
 import { computed } from '@angular/core';
-import { ToastMessage } from '@core/services';
-
-export type Theme = 'light' | 'dark' | 'system';
-
-interface UiState {
-  theme: Theme;
-  sidebarOpen: boolean;
-  toasts: ToastMessage[];
-}
+import { ToastMessage, Theme, UiState } from '@core/models';
 
 const STORAGE_KEY = 'ui_preferences';
 

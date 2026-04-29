@@ -1,8 +1,9 @@
 import { Component, computed, inject, input, output, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Post, Comment, AuthStore } from '@store/index';
+import { AuthStore } from '@store/index';
 import { ButtonComponent, IconComponent } from '@core/ui/components';
 import { MenuComponent, PostComposerComponent } from '@core/molecules';
+import { Post, Comment } from '@core/models';
 import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-post-card',

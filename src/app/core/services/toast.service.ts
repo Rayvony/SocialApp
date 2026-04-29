@@ -1,15 +1,6 @@
 import { Injectable } from '@angular/core';
+import { ToastMessage } from '@core/models';
 import { Subject } from 'rxjs';
-
-export type ToastSeverity = 'success' | 'info' | 'warn' | 'danger';
-
-export interface ToastMessage {
-  id?: number;
-  severity: ToastSeverity;
-  summary: string;
-  detail?: string;
-  duration?: number; // milisegundos, ej: 5000
-}
 
 @Injectable({
   providedIn: 'root',

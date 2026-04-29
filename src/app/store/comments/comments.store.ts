@@ -1,21 +1,6 @@
 import { signalStore, withState, withComputed, withMethods, patchState } from '@ngrx/signals';
 import { computed } from '@angular/core';
-import { AuthUser } from '@core/models';
-
-export interface Comment {
-  id: string;
-  postId: string;
-  authorId: string;
-  authorName: string;
-  authorAvatar?: string;
-  content: string;
-  createdAt: number;
-}
-
-interface CommentsState {
-  comments: Comment[];
-}
-
+import { AuthUser, Comment, CommentsState } from '@core/models';
 const STORAGE_KEY = 'comments_data';
 
 function loadFromStorage(): Comment[] {

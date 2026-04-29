@@ -3,7 +3,8 @@ import { applicationConfig } from '@storybook/angular';
 import { importProvidersFrom } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { LucideAngularModule, icons } from 'lucide-angular';
-import { AuthStore, Comment, Post } from '@store/index';
+import { AuthStore } from '@store/index';
+import { Post, Comment } from '@core/models';
 import { PostCardComponent } from './post-card.component';
 const mockCurrentUser = {
   id: '1',

@@ -4,3 +4,6 @@ export * from './comment.model';
 export * from './post.model';
 export * from './user.model';
 export * from './auth.model';
+export * from './menu.model';
+export * from './toast.model';
+export * from './post-composer.model';

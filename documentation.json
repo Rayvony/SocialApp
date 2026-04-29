@@ -718,6 +718,41 @@
             "duplicateName": "Post-1"
         },
         {
+            "name": "PostComposerSubmit",
+            "id": "interface-PostComposerSubmit-e34c719639b5a1e9de039b3546fa7578b4f5dee59a7f010a4774e4b6295c68fd76be1ab7df858c7b4c275f080252619e2891f3f00d64350c77222ee096d47691",
+            "file": "src/app/core/molecules/post-composer/post-composer.component.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "interface",
+            "sourceCode": "import { Component, input, OnInit, output, signal } from '@angular/core';\r\nimport { FormsModule } from '@angular/forms';\r\nimport { ButtonComponent, IconComponent } from '@core/ui/components';\r\n\r\nexport interface PostComposerSubmit {\r\n  content: string;\r\n  imageUrl?: string;\r\n}\r\n\r\n@Component({\r\n  selector: 'app-post-composer',\r\n  imports: [FormsModule, ButtonComponent, IconComponent],\r\n  templateUrl: './post-composer.component.html',\r\n  styleUrl: './post-composer.component.css',\r\n})\r\nexport class PostComposerComponent implements OnInit {\r\n  readonly initialContent = input<string | null>(null);\r\n  readonly userName = input<string>('');\r\n  readonly userAvatar = input<string | undefined>(undefined);\r\n\r\n  readonly onPost = output<PostComposerSubmit>();\r\n  readonly onCancel = output<void>();\r\n  readonly onSave = output<string>();\r\n\r\n  readonly content = signal('');\r\n  readonly imageUrl = signal<string | undefined>(undefined);\r\n  readonly focused = signal(false);\r\n\r\n  readonly maxChars = 280;\r\n  readonly mode = input<'create' | 'edit'>('create');\r\n\r\n  get charsLeft() {\r\n    return this.maxChars - this.content().length;\r\n  }\r\n\r\n  get isOverLimit() {\r\n    return this.charsLeft < 0;\r\n  }\r\n\r\n  get canSubmit() {\r\n    return (this.content().trim().length > 0 || !!this.imageUrl()) && !this.isOverLimit;\r\n  }\r\n\r\n  get charsClass() {\r\n    return this.charsLeft < 20\r\n      ? this.isOverLimit\r\n        ? 'composer-chars-over'\r\n        : 'composer-chars-warn'\r\n      : 'composer-chars';\r\n  }\r\n\r\n  ngOnInit() {\r\n    if (this.initialContent()) {\r\n      this.content.set(this.initialContent()!);\r\n      this.focused.set(true);\r\n    }\r\n  }\r\n\r\n  onInput(value: string) {\r\n    this.content.set(value);\r\n  }\r\n\r\n  onFocus() {\r\n    this.focused.set(true);\r\n  }\r\n\r\n  onBlur() {\r\n    this.focused.set(this.content().length > 0 || !!this.imageUrl());\r\n  }\r\n\r\n  onImageSelected(event: Event) {\r\n    const input = event.target as HTMLInputElement;\r\n    const file = input.files?.[0];\r\n\r\n    if (!file) return;\r\n    if (!file.type.startsWith('image/')) return;\r\n\r\n    const reader = new FileReader();\r\n\r\n    reader.onload = () => {\r\n      this.imageUrl.set(reader.result as string);\r\n      this.focused.set(true);\r\n    };\r\n\r\n    reader.readAsDataURL(file);\r\n    input.value = '';\r\n  }\r\n\r\n  removeImage() {\r\n    this.imageUrl.set(undefined);\r\n  }\r\n\r\n  cancel() {\r\n    this.content.set('');\r\n    this.imageUrl.set(undefined);\r\n    this.focused.set(false);\r\n    this.onCancel.emit();\r\n  }\r\n\r\n  submit() {\r\n    if (!this.canSubmit) return;\r\n\r\n    const value = this.content().trim();\r\n\r\n    if (this.mode() === 'edit') {\r\n      this.onSave.emit(value);\r\n    } else {\r\n      this.onPost.emit({\r\n        content: value,\r\n        imageUrl: this.imageUrl(),\r\n      });\r\n    }\r\n\r\n    this.content.set('');\r\n    this.imageUrl.set(undefined);\r\n    this.focused.set(false);\r\n  }\r\n\r\n  onKeyDown(event: KeyboardEvent) {\r\n    if (event.key === 'Enter' && (event.ctrlKey || event.metaKey)) {\r\n      this.submit();\r\n    }\r\n\r\n    if (event.key === 'Escape') {\r\n      this.cancel();\r\n    }\r\n  }\r\n}\r\n",
+            "properties": [
+                {
+                    "name": "content",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 6
+                },
+                {
+                    "name": "imageUrl",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "indexKey": "",
+                    "optional": true,
+                    "description": "",
+                    "line": 7
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 172,
+            "methods": [],
+            "extends": []
+        },
+        {
             "name": "PostsState",
             "id": "interface-PostsState-1f88a13ac99158c48af3bc441c6d44ed7ac1be440a8ff0e87a366a0aa81445b1625fdd5a715e1a864360a11d1ff70cfa341a447ab51ae9336b11087aa96d1942",
             "file": "src/app/store/posts/posts.store.ts",
@@ -1961,7 +1996,7 @@
         },
         {
             "name": "FeedPage",
-            "id": "component-FeedPage-b0b5ff1270b871831c8c194a772a2a606fa10799682f7ee65fcf6f68761dd6817cbf64e73d40dbacb925a9df171a6a61a5c55139cb9a5e4ca293245410d76adf",
+            "id": "component-FeedPage-538cef0ed93bf4abcd8efd4ba6324587536289c37fd77be7afccd51c6eedb286ced91728669e6de780ac0d8b421bf2591de7788f21612e43e98616149a81c3a2",
             "file": "src/app/pages/feed/feed.page.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -2080,7 +2115,7 @@
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 78,
+                    "line": 79,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -2112,7 +2147,7 @@
                     "optional": false,
                     "returnType": "boolean",
                     "typeParameters": [],
-                    "line": 70,
+                    "line": 71,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -2144,7 +2179,7 @@
                     "optional": false,
                     "returnType": "boolean",
                     "typeParameters": [],
-                    "line": 74,
+                    "line": 75,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -2184,7 +2219,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 47,
+                    "line": 48,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -2227,7 +2262,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 54,
+                    "line": 55,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -2259,7 +2294,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 61,
+                    "line": 62,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -2282,7 +2317,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 65,
+                    "line": 66,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -2290,8 +2325,8 @@
                     "name": "onPostCreated",
                     "args": [
                         {
-                            "name": "content",
-                            "type": "string",
+                            "name": "event",
+                            "type": "literal type",
                             "optional": false,
                             "dotDotDotToken": false,
                             "deprecated": false,
@@ -2306,8 +2341,8 @@
                     "deprecationMessage": "",
                     "jsdoctags": [
                         {
-                            "name": "content",
-                            "type": "string",
+                            "name": "event",
+                            "type": "literal type",
                             "optional": false,
                             "dotDotDotToken": false,
                             "deprecated": false,
@@ -2333,7 +2368,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 43,
+                    "line": 44,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -2365,7 +2400,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 37,
+                    "line": 38,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -2405,7 +2440,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, inject, signal } from '@angular/core';\r\nimport { Router } from '@angular/router';\r\nimport { AuthStore, PostsStore, CommentsStore, UiStore, Post } from '@store/index';\r\nimport { IconComponent } from '@core/ui/components';\r\nimport { PostComposerComponent } from '@core/molecules';\r\nimport { PostCardComponent } from '@core/organism/index';\r\n\r\n@Component({\r\n  selector: 'app-feed-page',\r\n  imports: [IconComponent, PostComposerComponent, PostCardComponent],\r\n  templateUrl: './feed.page.html',\r\n  styleUrl: './feed.page.css',\r\n})\r\nexport class FeedPage {\r\n  readonly authStore = inject(AuthStore);\r\n  readonly postsStore = inject(PostsStore);\r\n  readonly commentsStore = inject(CommentsStore);\r\n  readonly uiStore = inject(UiStore);\r\n  readonly router = inject(Router);\r\n\r\n  readonly expandedPostId = signal<string | null>(null);\r\n\r\n  get posts() {\r\n    return this.postsStore.sortedPosts();\r\n  }\r\n  get user() {\r\n    return this.authStore.currentUser();\r\n  }\r\n\r\n  onPostCreated(content: string) {\r\n    const user = this.user;\r\n    if (!user) return;\r\n    this.postsStore.addPost(content, user);\r\n    this.uiStore.success('Post publicado', 'Tu publicación ya está en el feed.');\r\n  }\r\n\r\n  onToggleLike(postId: string) {\r\n    const user = this.user;\r\n    if (!user) return;\r\n    this.postsStore.toggleLike(postId, user.id);\r\n  }\r\n\r\n  onToggleComments(postId: string) {\r\n    this.expandedPostId.update((id) => (id === postId ? null : postId));\r\n  }\r\n\r\n  onCommentAdded(postId: string, content: string) {\r\n    const user = this.user;\r\n    if (!user) return;\r\n    this.commentsStore.addComment(postId, content, user);\r\n    this.postsStore.incrementCommentCount(postId);\r\n  }\r\n\r\n  onDeletePost(postId: string) {\r\n    const user = this.user;\r\n    if (!user) return;\r\n    this.postsStore.deletePost(postId, user.id);\r\n    this.uiStore.info('Post eliminado', 'se eliminó correctamente.');\r\n  }\r\n\r\n  onEditPost(event: { postId: string; content: string }) {\r\n    this.postsStore.editPost(event.postId, event.content);\r\n  }\r\n\r\n  onLogout() {\r\n    this.authStore.logout();\r\n    this.router.navigate(['/login']);\r\n  }\r\n\r\n  isLiked(post: Post): boolean {\r\n    return post.likes.includes(this.user?.id ?? '');\r\n  }\r\n\r\n  isOwner(post: Post): boolean {\r\n    return post.authorId === this.user?.id;\r\n  }\r\n\r\n  commentsForPost(postId: string) {\r\n    return this.commentsStore.getCommentsForPost(postId);\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Component, inject, signal } from '@angular/core';\r\nimport { Router } from '@angular/router';\r\nimport { AuthStore, PostsStore, CommentsStore, UiStore, Post } from '@store/index';\r\nimport { IconComponent } from '@core/ui/components';\r\nimport { PostComposerComponent } from '@core/molecules';\r\nimport { PostCardComponent } from '@core/organism/index';\r\n\r\n@Component({\r\n  selector: 'app-feed-page',\r\n  imports: [IconComponent, PostComposerComponent, PostCardComponent],\r\n  templateUrl: './feed.page.html',\r\n  styleUrl: './feed.page.css',\r\n})\r\nexport class FeedPage {\r\n  readonly authStore = inject(AuthStore);\r\n  readonly postsStore = inject(PostsStore);\r\n  readonly commentsStore = inject(CommentsStore);\r\n  readonly uiStore = inject(UiStore);\r\n  readonly router = inject(Router);\r\n\r\n  readonly expandedPostId = signal<string | null>(null);\r\n\r\n  get posts() {\r\n    return this.postsStore.sortedPosts();\r\n  }\r\n  get user() {\r\n    return this.authStore.currentUser();\r\n  }\r\n\r\n  onPostCreated(event: { content: string; imageUrl?: string }) {\r\n    const user = this.user;\r\n    if (!user) return;\r\n\r\n    this.postsStore.addPost(event.content, user, event.imageUrl);\r\n    this.uiStore.success('Post publicado', 'Tu publicación ya está en el feed.');\r\n  }\r\n\r\n  onToggleLike(postId: string) {\r\n    const user = this.user;\r\n    if (!user) return;\r\n    this.postsStore.toggleLike(postId, user.id);\r\n  }\r\n\r\n  onToggleComments(postId: string) {\r\n    this.expandedPostId.update((id) => (id === postId ? null : postId));\r\n  }\r\n\r\n  onCommentAdded(postId: string, content: string) {\r\n    const user = this.user;\r\n    if (!user) return;\r\n    this.commentsStore.addComment(postId, content, user);\r\n    this.postsStore.incrementCommentCount(postId);\r\n  }\r\n\r\n  onDeletePost(postId: string) {\r\n    const user = this.user;\r\n    if (!user) return;\r\n    this.postsStore.deletePost(postId, user.id);\r\n    this.uiStore.info('Post eliminado', 'se eliminó correctamente.');\r\n  }\r\n\r\n  onEditPost(event: { postId: string; content: string }) {\r\n    this.postsStore.editPost(event.postId, event.content);\r\n  }\r\n\r\n  onLogout() {\r\n    this.authStore.logout();\r\n    this.router.navigate(['/login']);\r\n  }\r\n\r\n  isLiked(post: Post): boolean {\r\n    return post.likes.includes(this.user?.id ?? '');\r\n  }\r\n\r\n  isOwner(post: Post): boolean {\r\n    return post.authorId === this.user?.id;\r\n  }\r\n\r\n  commentsForPost(postId: string) {\r\n    return this.commentsStore.getCommentsForPost(postId);\r\n  }\r\n}\r\n",
             "styleUrl": "./feed.page.css",
             "assetsDirs": [],
             "styleUrlsData": "",
@@ -3832,7 +3867,7 @@
         {
             "name": "PostCardComponent",
             "id": "component-PostCardComponent-092d626765f91504da0d6ecd97142eaef42c9e0256c059d05953a7658af865c6cf94d0fd287fc09fec42a3f053325a405bd2d0d3eb88c93e7f666b40d0f417ad",
-            "file": "src/app/core/organism/post-composer/post-card.component.ts",
+            "file": "src/app/core/organism/post-card/post-card.component.ts",
             "encapsulation": [],
             "entryComponents": [],
             "inputs": [],
@@ -4215,7 +4250,7 @@
         },
         {
             "name": "PostComposerComponent",
-            "id": "component-PostComposerComponent-cbd031d70298a2dc4551f8c1cb0a9700a7a2ad3f60de52518075514ff5c3ab8df2746c456fa0ecab3883a97724441f89bf027f44ffbf98fba791b307e6ddbee2",
+            "id": "component-PostComposerComponent-e34c719639b5a1e9de039b3546fa7578b4f5dee59a7f010a4774e4b6295c68fd76be1ab7df858c7b4c275f080252619e2891f3f00d64350c77222ee096d47691",
             "file": "src/app/core/molecules/post-composer/post-composer.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -4240,7 +4275,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 13,
+                    "line": 17,
                     "modifierKind": [
                         148
                     ],
@@ -4255,7 +4290,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 22,
+                    "line": 30,
                     "modifierKind": [
                         148
                     ],
@@ -4270,7 +4305,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 15,
+                    "line": 19,
                     "modifierKind": [
                         148
                     ],
@@ -4285,7 +4320,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 14,
+                    "line": 18,
                     "modifierKind": [
                         148
                     ],
@@ -4301,7 +4336,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 17,
+                    "line": 22,
                     "modifierKind": [
                         148
                     ],
@@ -4311,11 +4346,11 @@
                     "name": "onPost",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "type": "string",
+                    "type": "PostComposerSubmit",
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 16,
+                    "line": 21,
                     "modifierKind": [
                         148
                     ],
@@ -4346,7 +4381,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 19,
+                    "line": 25,
                     "modifierKind": [
                         148
                     ]
@@ -4360,7 +4395,21 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 20,
+                    "line": 27,
+                    "modifierKind": [
+                        148
+                    ]
+                },
+                {
+                    "name": "imageUrl",
+                    "defaultValue": "signal<string | undefined>(undefined)",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "unknown",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 26,
                     "modifierKind": [
                         148
                     ]
@@ -4374,7 +4423,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 21,
+                    "line": 29,
                     "modifierKind": [
                         148
                     ]
@@ -4387,7 +4436,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 59,
+                    "line": 93,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -4397,7 +4446,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 42,
+                    "line": 52,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -4407,7 +4456,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 55,
+                    "line": 67,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -4417,9 +4466,41 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 52,
+                    "line": 63,
                     "deprecated": false,
                     "deprecationMessage": ""
+                },
+                {
+                    "name": "onImageSelected",
+                    "args": [
+                        {
+                            "name": "event",
+                            "type": "Event",
+                            "optional": false,
+                            "dotDotDotToken": false,
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 71,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "event",
+                            "type": "Event",
+                            "optional": false,
+                            "dotDotDotToken": false,
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
                 },
                 {
                     "name": "onInput",
@@ -4436,7 +4517,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 49,
+                    "line": 59,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -4468,7 +4549,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 80,
+                    "line": 119,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -4486,12 +4567,22 @@
                     ]
                 },
                 {
+                    "name": "removeImage",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 89,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
                     "name": "submit",
                     "args": [],
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 65,
+                    "line": 100,
                     "deprecated": false,
                     "deprecationMessage": ""
                 }
@@ -4518,7 +4609,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, input, OnInit, output, signal } from '@angular/core';\r\nimport { FormsModule } from '@angular/forms';\r\nimport { ButtonComponent, IconComponent } from '@core/ui/components';\r\n\r\n@Component({\r\n  selector: 'app-post-composer',\r\n\r\n  imports: [FormsModule, ButtonComponent, IconComponent],\r\n  templateUrl: './post-composer.component.html',\r\n  styleUrl: './post-composer.component.css',\r\n})\r\nexport class PostComposerComponent implements OnInit {\r\n  readonly initialContent = input<string | null>(null);\r\n  readonly userName = input<string>('');\r\n  readonly userAvatar = input<string | undefined>(undefined);\r\n  readonly onPost = output<string>();\r\n  readonly onCancel = output<void>();\r\n\r\n  readonly content = signal('');\r\n  readonly focused = signal(false);\r\n  readonly maxChars = 280;\r\n  readonly mode = input<'create' | 'edit'>('create');\r\n  readonly onSave = output<string>();\r\n\r\n  get charsLeft() {\r\n    return this.maxChars - this.content().length;\r\n  }\r\n  get isOverLimit() {\r\n    return this.charsLeft < 0;\r\n  }\r\n  get canSubmit() {\r\n    return this.content().trim().length > 0 && !this.isOverLimit;\r\n  }\r\n  get charsClass() {\r\n    return this.charsLeft < 20\r\n      ? this.isOverLimit\r\n        ? 'composer-chars-over'\r\n        : 'composer-chars-warn'\r\n      : 'composer-chars';\r\n  }\r\n\r\n  ngOnInit() {\r\n    if (this.initialContent()) {\r\n      this.content.set(this.initialContent()!);\r\n      this.focused.set(true);\r\n    }\r\n  }\r\n\r\n  onInput(value: string) {\r\n    this.content.set(value);\r\n  }\r\n  onFocus() {\r\n    this.focused.set(true);\r\n  }\r\n  onBlur() {\r\n    this.focused.set(this.content().length > 0);\r\n  }\r\n\r\n  cancel() {\r\n    this.content.set('');\r\n    this.focused.set(false);\r\n    this.onCancel.emit();\r\n  }\r\n\r\n  submit() {\r\n    if (!this.canSubmit) return;\r\n\r\n    const value = this.content().trim();\r\n\r\n    if (this.mode() === 'edit') {\r\n      this.onSave.emit(value);\r\n    } else {\r\n      this.onPost.emit(value);\r\n    }\r\n\r\n    this.content.set('');\r\n    this.focused.set(false);\r\n  }\r\n\r\n  onKeyDown(event: KeyboardEvent) {\r\n    if (event.key === 'Enter' && (event.ctrlKey || event.metaKey)) {\r\n      this.submit();\r\n    }\r\n\r\n    if (event.key === 'Escape') {\r\n      this.cancel();\r\n    }\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Component, input, OnInit, output, signal } from '@angular/core';\r\nimport { FormsModule } from '@angular/forms';\r\nimport { ButtonComponent, IconComponent } from '@core/ui/components';\r\n\r\nexport interface PostComposerSubmit {\r\n  content: string;\r\n  imageUrl?: string;\r\n}\r\n\r\n@Component({\r\n  selector: 'app-post-composer',\r\n  imports: [FormsModule, ButtonComponent, IconComponent],\r\n  templateUrl: './post-composer.component.html',\r\n  styleUrl: './post-composer.component.css',\r\n})\r\nexport class PostComposerComponent implements OnInit {\r\n  readonly initialContent = input<string | null>(null);\r\n  readonly userName = input<string>('');\r\n  readonly userAvatar = input<string | undefined>(undefined);\r\n\r\n  readonly onPost = output<PostComposerSubmit>();\r\n  readonly onCancel = output<void>();\r\n  readonly onSave = output<string>();\r\n\r\n  readonly content = signal('');\r\n  readonly imageUrl = signal<string | undefined>(undefined);\r\n  readonly focused = signal(false);\r\n\r\n  readonly maxChars = 280;\r\n  readonly mode = input<'create' | 'edit'>('create');\r\n\r\n  get charsLeft() {\r\n    return this.maxChars - this.content().length;\r\n  }\r\n\r\n  get isOverLimit() {\r\n    return this.charsLeft < 0;\r\n  }\r\n\r\n  get canSubmit() {\r\n    return (this.content().trim().length > 0 || !!this.imageUrl()) && !this.isOverLimit;\r\n  }\r\n\r\n  get charsClass() {\r\n    return this.charsLeft < 20\r\n      ? this.isOverLimit\r\n        ? 'composer-chars-over'\r\n        : 'composer-chars-warn'\r\n      : 'composer-chars';\r\n  }\r\n\r\n  ngOnInit() {\r\n    if (this.initialContent()) {\r\n      this.content.set(this.initialContent()!);\r\n      this.focused.set(true);\r\n    }\r\n  }\r\n\r\n  onInput(value: string) {\r\n    this.content.set(value);\r\n  }\r\n\r\n  onFocus() {\r\n    this.focused.set(true);\r\n  }\r\n\r\n  onBlur() {\r\n    this.focused.set(this.content().length > 0 || !!this.imageUrl());\r\n  }\r\n\r\n  onImageSelected(event: Event) {\r\n    const input = event.target as HTMLInputElement;\r\n    const file = input.files?.[0];\r\n\r\n    if (!file) return;\r\n    if (!file.type.startsWith('image/')) return;\r\n\r\n    const reader = new FileReader();\r\n\r\n    reader.onload = () => {\r\n      this.imageUrl.set(reader.result as string);\r\n      this.focused.set(true);\r\n    };\r\n\r\n    reader.readAsDataURL(file);\r\n    input.value = '';\r\n  }\r\n\r\n  removeImage() {\r\n    this.imageUrl.set(undefined);\r\n  }\r\n\r\n  cancel() {\r\n    this.content.set('');\r\n    this.imageUrl.set(undefined);\r\n    this.focused.set(false);\r\n    this.onCancel.emit();\r\n  }\r\n\r\n  submit() {\r\n    if (!this.canSubmit) return;\r\n\r\n    const value = this.content().trim();\r\n\r\n    if (this.mode() === 'edit') {\r\n      this.onSave.emit(value);\r\n    } else {\r\n      this.onPost.emit({\r\n        content: value,\r\n        imageUrl: this.imageUrl(),\r\n      });\r\n    }\r\n\r\n    this.content.set('');\r\n    this.imageUrl.set(undefined);\r\n    this.focused.set(false);\r\n  }\r\n\r\n  onKeyDown(event: KeyboardEvent) {\r\n    if (event.key === 'Enter' && (event.ctrlKey || event.metaKey)) {\r\n      this.submit();\r\n    }\r\n\r\n    if (event.key === 'Escape') {\r\n      this.cancel();\r\n    }\r\n  }\r\n}\r\n",
             "styleUrl": "./post-composer.component.css",
             "assetsDirs": [],
             "styleUrlsData": "",
@@ -4534,7 +4625,7 @@
                         "name": "charsLeft",
                         "type": "",
                         "returnType": "",
-                        "line": 25
+                        "line": 32
                     }
                 },
                 "isOverLimit": {
@@ -4543,7 +4634,7 @@
                         "name": "isOverLimit",
                         "type": "",
                         "returnType": "",
-                        "line": 28
+                        "line": 36
                     }
                 },
                 "canSubmit": {
@@ -4552,7 +4643,7 @@
                         "name": "canSubmit",
                         "type": "",
                         "returnType": "",
-                        "line": 31
+                        "line": 40
                     }
                 },
                 "charsClass": {
@@ -4561,11 +4652,11 @@
                         "name": "charsClass",
                         "type": "",
                         "returnType": "",
-                        "line": 34
+                        "line": 44
                     }
                 }
             },
-            "templateData": "<div class=\"composer\" [class.composer-focused]=\"focused()\">\r\n  <div class=\"composer-top\">\r\n    @if (mode() === 'create') {\r\n      @if (userAvatar()) {\r\n        <img [src]=\"userAvatar()\" [alt]=\"userName()\" class=\"composer-avatar\" />\r\n      } @else {\r\n        <div class=\"composer-avatar-placeholder\">\r\n          <ui-icon name=\"user\" [size]=\"20\" />\r\n        </div>\r\n      }\r\n    }\r\n    <textarea\r\n      class=\"composer-textarea\"\r\n      [value]=\"content()\"\r\n      [placeholder]=\"'¿Qué estás pensando, ' + userName() + '?'\"\r\n      rows=\"1\"\r\n      maxlength=\"320\"\r\n      (input)=\"onInput($any($event.target).value)\"\r\n      (focus)=\"onFocus()\"\r\n      (blur)=\"onBlur()\"\r\n      (keydown)=\"onKeyDown($event)\"\r\n    ></textarea>\r\n  </div>\r\n\r\n  @if (focused()) {\r\n    <div class=\"composer-bottom\">\r\n      <span [class]=\"charsClass\">{{ charsLeft }}</span>\r\n      <div class=\"composer-buttons\">\r\n        @if (mode() === 'edit') {\r\n          <ui-button variant=\"primary\" size=\"sm\" (onClick)=\"cancel()\">\r\n            <ui-icon name=\"x\" [size]=\"15\" />\r\n            Cancelar\r\n          </ui-button>\r\n        }\r\n        <ui-button variant=\"primary\" size=\"sm\" [disabled]=\"!canSubmit\" (onClick)=\"submit()\">\r\n          <ui-icon name=\"send\" [size]=\"15\" />\r\n          @if (mode() === 'edit') {\r\n            Editar\r\n          } @else {\r\n            Publicar\r\n          }\r\n        </ui-button>\r\n      </div>\r\n    </div>\r\n  }\r\n</div>\r\n"
+            "templateData": "<div class=\"composer\" [class.composer-focused]=\"focused()\">\r\n  <div class=\"composer-top\">\r\n    @if (mode() === 'create') {\r\n      @if (userAvatar()) {\r\n        <img [src]=\"userAvatar()\" [alt]=\"userName()\" class=\"composer-avatar\" />\r\n      } @else {\r\n        <div class=\"composer-avatar-placeholder\">\r\n          <ui-icon name=\"user\" [size]=\"20\" />\r\n        </div>\r\n      }\r\n    }\r\n    <textarea\r\n      class=\"composer-textarea\"\r\n      [value]=\"content()\"\r\n      [placeholder]=\"'¿Qué estás pensando, ' + userName() + '?'\"\r\n      rows=\"1\"\r\n      maxlength=\"320\"\r\n      (input)=\"onInput($any($event.target).value)\"\r\n      (focus)=\"onFocus()\"\r\n      (blur)=\"onBlur()\"\r\n      (keydown)=\"onKeyDown($event)\"\r\n    ></textarea>\r\n    @if (imageUrl()) {\r\n      <div class=\"composer-image-preview\">\r\n        <img [src]=\"imageUrl()\" alt=\"Imagen seleccionada\" />\r\n        <button type=\"button\" class=\"composer-image-remove\" (click)=\"removeImage()\">\r\n          <ui-icon name=\"x\" [size]=\"14\" />\r\n        </button>\r\n      </div>\r\n    }\r\n  </div>\r\n\r\n  @if (focused()) {\r\n    <div class=\"composer-bottom\">\r\n      <span [class]=\"charsClass\">{{ charsLeft }}</span>\r\n      <div class=\"composer-buttons\">\r\n        @if (mode() === 'edit') {\r\n          <ui-button variant=\"primary\" size=\"sm\" (onClick)=\"cancel()\">\r\n            <ui-icon name=\"x\" [size]=\"15\" />\r\n            Cancelar\r\n          </ui-button>\r\n        }\r\n        @if (mode() === 'create' && content().length) {\r\n          <label class=\"composer-image-button\">\r\n            <ui-icon name=\"image\" [size]=\"15\" />\r\n            Imagen\r\n            <input type=\"file\" accept=\"image/*\" hidden (change)=\"onImageSelected($event)\" />\r\n          </label>\r\n        }\r\n        <ui-button variant=\"primary\" size=\"sm\" [disabled]=\"!canSubmit\" (onClick)=\"submit()\">\r\n          <ui-icon name=\"send\" [size]=\"15\" />\r\n          @if (mode() === 'edit') {\r\n            Editar\r\n          } @else {\r\n            Publicar\r\n          }\r\n        </ui-button>\r\n      </div>\r\n    </div>\r\n  }\r\n</div>\r\n"
         },
         {
             "name": "ProfilePage",
@@ -7550,7 +7641,16 @@
                 "linktype": "component",
                 "name": "PostComposerComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/18",
+                "coverageCount": "0/21",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/core/molecules/post-composer/post-composer.component.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "PostComposerSubmit",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
                 "status": "low"
             },
             {
@@ -7563,7 +7663,7 @@
                 "status": "low"
             },
             {
-                "filePath": "src/app/core/organism/post-composer/post-card.component.ts",
+                "filePath": "src/app/core/organism/post-card/post-card.component.ts",
                 "type": "component",
                 "linktype": "component",
                 "name": "PostCardComponent",

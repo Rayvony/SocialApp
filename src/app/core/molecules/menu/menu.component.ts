@@ -2,17 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, computed, input, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClickOutsideDirective } from '@core/directives';
+import { MenuActionItem } from '@core/models';
 import { ButtonComponent, IconComponent } from '@core/ui/components';
-
-export interface MenuActionItem {
-  id: string;
-  label: string;
-  icon?: string;
-  disabled?: boolean;
-  url?: string;
-  action?: () => void;
-  children?: MenuActionItem[];
-}
 
 @Component({
   selector: 'app-menu',

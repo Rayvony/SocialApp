@@ -1,3 +1,5 @@
+import { ToastMessage } from './toast.model';
+
 export type ColorVariant =
   | 'primary'
   | 'secondary'
@@ -23,4 +25,12 @@ export interface ComponentStyles {
   whiteSpace?: 'normal' | 'nowrap';
   textOverflow?: 'clip' | 'ellipsis';
   overflow?: 'hidden' | 'visible';
+}
+
+export type Theme = 'light' | 'dark' | 'system';
+
+export interface UiState {
+  theme: Theme;
+  sidebarOpen: boolean;
+  toasts: ToastMessage[];
 }

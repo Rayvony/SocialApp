@@ -1,24 +1,6 @@
 import { computed } from '@angular/core';
 import { signalStore, withState, withComputed, withMethods, patchState } from '@ngrx/signals';
-import { AuthUser } from '@core/models';
-
-export interface Post {
-  id: string;
-  authorId: string;
-  authorName: string;
-  authorAvatar?: string;
-  content: string;
-  imageUrl?: string;
-  likes: string[];
-  commentCount: number;
-  createdAt: number;
-}
-
-interface PostsState {
-  posts: Post[];
-  loading: boolean;
-  error: string | null;
-}
+import { AuthUser, Post, PostsState } from '@core/models';
 
 const STORAGE_KEY = 'posts_data';
 

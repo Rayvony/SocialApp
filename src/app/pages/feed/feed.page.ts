@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthStore, PostsStore, CommentsStore, UiStore, Post } from '@store/index';
+import { AuthStore, PostsStore, CommentsStore, UiStore } from '@store/index';
+import { Post } from '@core/models';
 import { IconComponent } from '@core/ui/components';
 import { PostComposerComponent } from '@core/molecules';
 import { PostCardComponent } from '@core/organism/index';

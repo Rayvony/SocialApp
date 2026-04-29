@@ -1,11 +1,7 @@
 import { Component, input, OnInit, output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { PostComposerSubmit } from '@core/models';
 import { ButtonComponent, IconComponent } from '@core/ui/components';
-
-export interface PostComposerSubmit {
-  content: string;
-  imageUrl?: string;
-}
 
 @Component({
   selector: 'app-post-composer',
