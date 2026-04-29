@@ -11,10 +11,10 @@ export const serverRoutes: ServerRoute[] = [
   },
   {
     path: 'profile/:id',
-    renderMode: RenderMode.Client,
+    renderMode: RenderMode.Server,
   },
   {
     path: '**',
-    renderMode: RenderMode.Prerender,
+    renderMode: RenderMode.Server,
   },
 ];
