@@ -6,7 +6,7 @@ import { MenuComponent, PostComposerComponent } from '@core/molecules';
 import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-post-card',
-  standalone: true,
+
   imports: [
     ReactiveFormsModule,
     ButtonComponent,

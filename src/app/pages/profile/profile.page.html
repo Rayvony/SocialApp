@@ -89,7 +89,12 @@
       <div class="profile-posts">
         <h2 class="profile-posts-title">
           <ui-icon name="layout-list" [size]="18" />
-          {{ isOwn() ? 'Mis posts' : 'Posts de ' + profileUser()?.name }}
+
+          <span class="profile-posts-title">
+            {{ isOwn() ? 'Mis posts' : 'Posts de ' + profileUser()?.name }}
+          </span>
+
+          <div class="profile-posts-divider"></div>
         </h2>
 
         @if (userPosts().length === 0) {

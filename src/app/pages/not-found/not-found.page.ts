@@ -4,7 +4,7 @@ import { ButtonComponent, IconComponent } from '@core/ui/components';
 
 @Component({
   selector: 'app-not-found-page',
-  standalone: true,
+
   imports: [RouterLink, ButtonComponent, IconComponent],
   templateUrl: './not-found.page.html',
   styleUrl: './not-found.page.css',

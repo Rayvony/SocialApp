@@ -1,11 +1,29 @@
 import { Routes } from '@angular/router';
 import { authGuard } from '@core/guards/auth.guard';
+import { LayoutComponent } from '@core/organism/index';
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'feed',
-    pathMatch: 'full',
+    component: LayoutComponent,
+    canActivate: [authGuard],
+    children: [
+      {
+        path: 'feed',
+        loadComponent: () => import('./pages/feed/feed.page').then((m) => m.FeedPage),
+        title: 'Feed',
+      },
+      {
+        path: 'profile/:id',
+        loadComponent: () => import('./pages/profile/profile.page').then((m) => m.ProfilePage),
+        title: 'Perfil',
+      },
+      {
+        path: '',
+        redirectTo: 'feed',
+        pathMatch: 'full',
+      },
+    ],
   },
   {
     path: 'login',
@@ -14,20 +32,7 @@ export const routes: Routes = [
     title: 'Iniciar sesión',
   },
   {
-    path: 'feed',
-    loadComponent: () => import('./pages/feed/feed.page').then((m) => m.FeedPage),
-    canActivate: [authGuard],
-    title: 'Feed',
-  },
-  {
-    path: 'profile/:id',
-    loadComponent: () => import('./pages/profile/profile.page').then((m) => m.ProfilePage),
-    canActivate: [authGuard],
-    title: 'Perfil',
-  },
-  {
     path: '**',
     loadComponent: () => import('./pages/not-found/not-found.page').then((m) => m.NotFoundPage),
-    title: 'Página no encontrada',
   },
 ];

@@ -17,7 +17,7 @@ export interface SelectOption {
 
 @Component({
   selector: 'ui-select',
-  standalone: true,
+
   imports: [],
   templateUrl: './select.html',
   styleUrl: './select.css',

@@ -4,7 +4,7 @@ import { ButtonComponent, IconComponent } from '@core/ui/components';
 
 @Component({
   selector: 'app-post-composer',
-  standalone: true,
+
   imports: [FormsModule, ButtonComponent, IconComponent],
   templateUrl: './post-composer.component.html',
   styleUrl: './post-composer.component.css',

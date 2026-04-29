@@ -1,107 +1,30 @@
-<div class="feed-layout">
-  <aside class="feed-sidebar" [class.feed-sidebar-open]="uiStore.sidebarOpen()">
-    <div class="feed-sidebar-brand">
-      <img src="icons/firma.svg" height="28" width="28" class="firma-brand" />
-      @if (uiStore.sidebarOpen()) {
-        <span class="feed-sidebar-title">SocialApp</span>
-      }
-    </div>
+<div class="feed-content">
+  <div class="feed-column">
+    <app-post-composer
+      [userName]="user?.name ?? ''"
+      [userAvatar]="user?.avatar"
+      (onPost)="onPostCreated($event)"
+    />
 
-    <nav class="feed-sidebar-nav">
-      <a class="feed-nav-item feed-nav-item-active">
-        <ui-icon name="house" [size]="20" />
-        @if (uiStore.sidebarOpen()) {
-          <span>Feed</span>
-        }
-      </a>
-      <a [routerLink]="['/profile', user?.id]" class="feed-nav-item">
-        <ui-icon name="user" [size]="20" />
-        @if (uiStore.sidebarOpen()) {
-          <span>Perfil</span>
-        }
-      </a>
-    </nav>
-
-    <div class="feed-sidebar-footer">
-      <ui-button
-        variant="light"
-        [size]="uiStore.sidebarOpen() ? 'md' : 'icon'"
-        (onClick)="uiStore.toggleTheme()"
-      >
-        @if (uiStore.isDark()) {
-          <ui-icon name="sun" [size]="18" />
-          @if (uiStore.sidebarOpen()) {
-            Tema claro
-          }
-        } @else {
-          <ui-icon name="moon" [size]="18" />
-          @if (uiStore.sidebarOpen()) {
-            Tema oscuro
-          }
-        }
-      </ui-button>
-
-      <ui-button
-        variant="danger"
-        [size]="uiStore.sidebarOpen() ? 'md' : 'icon'"
-        (onClick)="onLogout()"
-      >
-        <ui-icon name="log-out" [size]="18" />
-        @if (uiStore.sidebarOpen()) {
-          Cerrar sesión
-        }
-      </ui-button>
-    </div>
-  </aside>
-
-  <main class="feed-main">
-    <header class="feed-header">
-      <ui-button variant="light" size="icon" (onClick)="uiStore.toggleSidebar()">
-        <ui-icon
-          [name]="uiStore.sidebarOpen() ? 'panel-left-close' : 'panel-left-open'"
-          [size]="20"
-        />
-      </ui-button>
-
-      <div class="feed-header-user">
-        <a [routerLink]="['/profile', user?.id]" class="feed-header-user">
-          <span class="feed-header-name">{{ user?.name }}</span>
-          @if (user?.avatar) {
-            <img [src]="user?.avatar" [alt]="user?.name" class="feed-avatar" />
-          }
-        </a>
+    @if (posts.length === 0) {
+      <div class="feed-empty">
+        <ui-icon name="inbox" [size]="48" className="text-muted" />
+        <p>No hay posts todavía. ¡Sé el primero en publicar!</p>
       </div>
-    </header>
+    }
 
-    <div class="feed-content">
-      <div class="feed-column">
-        <app-post-composer
-          [userName]="user?.name ?? ''"
-          [userAvatar]="user?.avatar"
-          (onPost)="onPostCreated($event)"
-        />
-
-        @if (posts.length === 0) {
-          <div class="feed-empty">
-            <ui-icon name="inbox" [size]="48" className="text-muted" />
-            <p>No hay posts todavía. ¡Sé el primero en publicar!</p>
-          </div>
-        }
-
-        @for (post of posts; track post.id) {
-          <app-post-card
-            [post]="post"
-            [liked]="isLiked(post)"
-            [showComments]="expandedPostId() === post.id"
-            [comments]="commentsForPost(post.id)"
-            (onLike)="onToggleLike(post.id)"
-            (onToggleComments)="onToggleComments(post.id)"
-            (onComment)="onCommentAdded(post.id, $event)"
-            (onDelete)="onDeletePost(post.id)"
-            (onSaveEdit)="onEditPost($event)"
-          />
-        }
-      </div>
-    </div>
-  </main>
+    @for (post of posts; track post.id) {
+      <app-post-card
+        [post]="post"
+        [liked]="isLiked(post)"
+        [showComments]="expandedPostId() === post.id"
+        [comments]="commentsForPost(post.id)"
+        (onLike)="onToggleLike(post.id)"
+        (onToggleComments)="onToggleComments(post.id)"
+        (onComment)="onCommentAdded(post.id, $event)"
+        (onDelete)="onDeletePost(post.id)"
+        (onSaveEdit)="onEditPost($event)"
+      />
+    }
+  </div>
 </div>

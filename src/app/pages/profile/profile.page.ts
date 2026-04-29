@@ -11,7 +11,7 @@ import { PostCardComponent } from '@core/organism/index';
 
 @Component({
   selector: 'app-profile-page',
-  standalone: true,
+
   imports: [ReactiveFormsModule, ButtonComponent, IconComponent, CardComponent, PostCardComponent],
   templateUrl: './profile.page.html',
   styleUrl: './profile.page.css',

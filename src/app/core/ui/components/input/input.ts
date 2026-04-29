@@ -5,7 +5,7 @@ import { ComponentStyles, OnChangeEvent } from '@core/models';
 
 @Component({
   selector: 'ui-input',
-  standalone: true,
+
   imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './input.html',
   styleUrl: './input.css',

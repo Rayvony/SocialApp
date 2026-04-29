@@ -3,7 +3,7 @@ import { LucideAngularModule } from 'lucide-angular';
 
 @Component({
   selector: 'ui-icon',
-  standalone: true,
+
   imports: [LucideAngularModule],
   template: `
     <lucide-icon

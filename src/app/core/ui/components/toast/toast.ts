@@ -4,7 +4,7 @@ import { LucideAngularModule } from 'lucide-angular';
 
 @Component({
   selector: 'ui-toast',
-  standalone: true,
+
   imports: [LucideAngularModule],
   templateUrl: './toast.html',
   styleUrl: './toast.css',

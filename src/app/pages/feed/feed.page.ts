@@ -1,14 +1,13 @@
 import { Component, inject, signal } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthStore, PostsStore, CommentsStore, UiStore, Post } from '@store/index';
-import { ButtonComponent, IconComponent } from '@core/ui/components';
+import { IconComponent } from '@core/ui/components';
 import { PostComposerComponent } from '@core/molecules';
-import { PostCardComponent } from '@core/organism/post-composer/post-card.component';
+import { PostCardComponent } from '@core/organism/index';
 
 @Component({
   selector: 'app-feed-page',
-  standalone: true,
-  imports: [ButtonComponent, IconComponent, PostComposerComponent, PostCardComponent, RouterLink],
+  imports: [IconComponent, PostComposerComponent, PostCardComponent],
   templateUrl: './feed.page.html',
   styleUrl: './feed.page.css',
 })

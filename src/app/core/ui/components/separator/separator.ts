@@ -8,7 +8,7 @@ export type SeparatorSize = 'sm' | 'md' | 'lg';
 
 @Component({
   selector: 'ui-separator',
-  standalone: true,
+
   imports: [CommonModule],
   templateUrl: './separator.html',
   styleUrl: './separator.css',
