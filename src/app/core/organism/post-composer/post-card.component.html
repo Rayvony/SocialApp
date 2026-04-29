@@ -84,7 +84,9 @@
                 </div>
               }
               <div class="post-comment-body">
-                <span class="post-comment-author">{{ comment.authorName }}</span>
+                <a class="profile-link" [routerLink]="['/profile', comment.authorId]">
+                  <span class="post-comment-author">{{ comment.authorName }}</span>
+                </a>
                 <span class="post-comment-text">{{ comment.content }}</span>
               </div>
             </div>

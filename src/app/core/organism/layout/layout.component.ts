@@ -1,11 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { AuthStore, UiStore } from '@store/index';
 import { ButtonComponent, IconComponent } from '@core/ui/components';
-import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-layout',
-  imports: [RouterOutlet, ButtonComponent, IconComponent, RouterLink],
+  imports: [RouterOutlet, ButtonComponent, IconComponent, RouterLink, RouterLinkActive],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.css',
 })

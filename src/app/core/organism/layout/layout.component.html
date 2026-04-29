@@ -8,13 +8,23 @@
     </div>
 
     <nav class="feed-sidebar-nav">
-      <a class="feed-nav-item feed-nav-item-active">
+      <a
+        class="feed-nav-item"
+        [routerLink]="['/feed']"
+        routerLinkActive="feed-nav-item-active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
         <ui-icon name="house" [size]="20" />
         @if (uiStore.sidebarOpen()) {
           <span>Feed</span>
         }
       </a>
-      <a [routerLink]="['/profile', user?.id]" class="feed-nav-item">
+
+      <a
+        class="feed-nav-item"
+        [routerLink]="['/profile', user?.id]"
+        routerLinkActive="feed-nav-item-active"
+      >
         <ui-icon name="user" [size]="20" />
         @if (uiStore.sidebarOpen()) {
           <span>Perfil</span>
