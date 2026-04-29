@@ -20,6 +20,14 @@
       (blur)="onBlur()"
       (keydown)="onKeyDown($event)"
     ></textarea>
+    @if (imageUrl()) {
+      <div class="composer-image-preview">
+        <img [src]="imageUrl()" alt="Imagen seleccionada" />
+        <button type="button" class="composer-image-remove" (click)="removeImage()">
+          <ui-icon name="x" [size]="14" />
+        </button>
+      </div>
+    }
   </div>
 
   @if (focused()) {
@@ -31,6 +39,13 @@
             <ui-icon name="x" [size]="15" />
             Cancelar
           </ui-button>
+        }
+        @if (mode() === 'create' && content().length) {
+          <label class="composer-image-button">
+            <ui-icon name="image" [size]="15" />
+            Imagen
+            <input type="file" accept="image/*" hidden (change)="onImageSelected($event)" />
+          </label>
         }
         <ui-button variant="primary" size="sm" [disabled]="!canSubmit" (onClick)="submit()">
           <ui-icon name="send" [size]="15" />

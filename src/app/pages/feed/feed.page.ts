@@ -27,10 +27,11 @@ export class FeedPage {
     return this.authStore.currentUser();
   }
 
-  onPostCreated(content: string) {
+  onPostCreated(event: { content: string; imageUrl?: string }) {
     const user = this.user;
     if (!user) return;
-    this.postsStore.addPost(content, user);
+
+    this.postsStore.addPost(event.content, user, event.imageUrl);
     this.uiStore.success('Post publicado', 'Tu publicación ya está en el feed.');
   }
 
