@@ -43,9 +43,17 @@
     "uuid": "^14.0.0"
   },
   "devDependencies": {
+    "@angular-devkit/architect": "^0.2101.0",
+    "@angular-devkit/build-angular": "^21.1.0",
+    "@angular-devkit/core": "^21.1.0",
     "@angular/build": "^21.1.1",
     "@angular/cli": "^21.1.1",
     "@angular/compiler-cli": "^21.1.0",
+    "@angular/platform-browser-dynamic": "^21.1.0",
+    "@compodoc/compodoc": "^1.2.1",
+    "@storybook/addon-a11y": "^10.3.6",
+    "@storybook/addon-docs": "^10.3.6",
+    "@storybook/angular": "^10.3.6",
     "@tailwindcss/postcss": "^4.2.4",
     "@types/express": "^5.0.1",
     "@types/node": "^20.17.19",
@@ -54,17 +62,9 @@
     "postcss": "^8.5.12",
     "prettier": "^3.8.3",
     "prettier-plugin-tailwindcss": "^0.8.0",
+    "storybook": "^10.3.6",
     "tailwindcss": "^4.2.4",
     "typescript": "~5.9.2",
-    "vitest": "^4.0.8",
-    "storybook": "^10.3.6",
-    "@storybook/angular": "^10.3.6",
-    "@storybook/addon-a11y": "^10.3.6",
-    "@storybook/addon-docs": "^10.3.6",
-    "@angular-devkit/build-angular": "^21.1.0",
-    "@angular-devkit/architect": "^0.2101.0",
-    "@angular-devkit/core": "^21.1.0",
-    "@angular/platform-browser-dynamic": "^21.1.0",
-    "@compodoc/compodoc": "^1.2.1"
+    "vitest": "^4.0.8"
   }
 }
