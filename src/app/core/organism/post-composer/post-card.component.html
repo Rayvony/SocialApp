@@ -9,7 +9,9 @@
         </div>
       }
       <div class="post-author-info">
-        <span class="post-author-name">{{ post().authorName }}</span>
+        <a class="profile-link" [routerLink]="['/profile', post().authorId]">
+          <span class="post-author-name">{{ post().authorName }}</span>
+        </a>
         <span class="post-time">{{ timeAgo }}</span>
       </div>
     </div>

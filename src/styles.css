@@ -67,6 +67,8 @@
   --animate-zoom-in: zoom-in 0.15s ease-out;
   --animate-zoom-out: zoom-out 0.15s ease-out;
   --animate-fade-in-scale: fadeIn 0.15s ease-out forwards;
+
+  --profile-link-hover: color-mix(in oklch, var(--color-primary) 85%, black);
 }
 
 @variant dark (&:where(.dark, .dark *));
@@ -92,6 +94,7 @@
   --color-secondary: oklch(0.145 0 0);
   --color-secondary-foreground: oklab(47.141% 0.1877 -0.08652);
   --btn-hover-mix: white;
+  --profile-link-hover: color-mix(in oklch, var(--color-primary) 85%, white);
 
   .firma-brand {
     filter: brightness(0) invert(1);
@@ -117,24 +120,6 @@ body {
     'rlig' 1,
     'calt' 1;
 }
-
-.fit-content {
-  width: fit-content;
-}
-.no-select {
-  user-select: none;
-}
-.ignore-host {
-  display: contents;
-}
-.brr-none {
-  border-top-right-radius: 0 !important;
-  border-bottom-right-radius: 0 !important;
-}
-.brl-none {
-  border-top-left-radius: 0 !important;
-  border-bottom-left-radius: 0 !important;
-}
 .sr-only {
   position: absolute !important;
   width: 1px !important;
@@ -157,6 +142,10 @@ body {
   transform: scale(0.95);
 }
 
+.ignore-host {
+  display: contents;
+}
+
 .spin {
   animation: spin 1s linear infinite;
 }
@@ -165,24 +154,4 @@ body {
   to {
     transform: rotate(360deg);
   }
-}
-
-.pi {
-  width: fit-content !important;
-}
-.pi::before {
-  backface-visibility: visible !important;
-  -webkit-backface-visibility: visible !important;
-}
-.text-header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: var(--header-size);
-  background-color: green;
-  text-align: center;
-}
-.font-semibold {
-  font-weight: 600;
 }

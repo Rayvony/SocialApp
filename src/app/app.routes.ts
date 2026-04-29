@@ -20,6 +20,12 @@ export const routes: Routes = [
     title: 'Feed',
   },
   {
+    path: 'profile/:id',
+    loadComponent: () => import('./pages/profile/profile.page').then((m) => m.ProfilePage),
+    canActivate: [authGuard],
+    title: 'Perfil',
+  },
+  {
     path: '**',
     loadComponent: () => import('./pages/not-found/not-found.page').then((m) => m.NotFoundPage),
     title: 'Página no encontrada',

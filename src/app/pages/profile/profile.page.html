@@ -1,0 +1,117 @@
+<div class="profile-layout">
+  <div class="profile-content">
+    <button class="profile-back" (click)="goBack()">
+      <ui-icon name="arrow-left" [size]="18" />
+      Volver al feed
+    </button>
+
+    @if (!profileUser()) {
+      <div class="profile-not-found">
+        <ui-icon name="user-x" [size]="48" />
+        <p>Usuario no encontrado</p>
+      </div>
+    } @else {
+      <ui-card>
+        <div class="profile-header">
+          <div class="profile-avatar-wrap">
+            @if (profileUser()?.avatar) {
+              <img
+                [src]="profileUser()?.avatar"
+                [alt]="profileUser()?.name"
+                class="profile-avatar"
+              />
+            } @else {
+              <div class="profile-avatar-placeholder">
+                <ui-icon name="user" [size]="40" />
+              </div>
+            }
+            @if (isOwn() && !editing()) {
+              <button class="profile-avatar-edit" (click)="startEditing()">
+                <ui-icon name="pencil" [size]="14" />
+              </button>
+            }
+          </div>
+
+          <div class="profile-info">
+            @if (editing()) {
+              <div class="profile-edit-form">
+                <input
+                  class="profile-name-input"
+                  type="text"
+                  placeholder="Tu nombre"
+                  [formControl]="nameControl"
+                />
+                <div class="profile-edit-actions">
+                  <ui-button variant="primary" size="sm" (onClick)="saveProfile()">
+                    <ui-icon name="check" [size]="15" />
+                    Guardar
+                  </ui-button>
+                  <ui-button variant="light" size="sm" (onClick)="cancelEditing()">
+                    Cancelar
+                  </ui-button>
+                </div>
+              </div>
+            } @else {
+              <div class="profile-name-row">
+                <h1 class="profile-name">{{ profileUser()?.name }}</h1>
+              </div>
+              @if (profileUser()?.email) {
+                <span class="profile-email">{{ profileUser()?.email }}</span>
+              }
+              @if (profileUser()?.provider === 'google') {
+                <span class="profile-badge">
+                  <img src="icons/icon-google.svg" width="13" height="13" />
+                  Google
+                </span>
+              }
+            }
+          </div>
+        </div>
+
+        <div class="profile-stats">
+          <div class="profile-stat">
+            <span class="profile-stat-value">{{ stats().totalPosts }}</span>
+            <span class="profile-stat-label">Posts</span>
+          </div>
+          <div class="profile-stat-divider"></div>
+          <div class="profile-stat">
+            <span class="profile-stat-value">{{ stats().totalLikes }}</span>
+            <span class="profile-stat-label">Likes recibidos</span>
+          </div>
+          <div class="profile-stat-divider"></div>
+          <div class="profile-stat">
+            <span class="profile-stat-value">{{ stats().totalComments }}</span>
+            <span class="profile-stat-label">Comentarios</span>
+          </div>
+        </div>
+      </ui-card>
+
+      <div class="profile-posts">
+        <h2 class="profile-posts-title">
+          <ui-icon name="layout-list" [size]="18" />
+          {{ isOwn() ? 'Mis posts' : 'Posts de ' + profileUser()?.name }}
+        </h2>
+
+        @if (userPosts().length === 0) {
+          <div class="profile-empty">
+            <ui-icon name="inbox" [size]="40" />
+            <p>Todavía no hay posts</p>
+          </div>
+        }
+
+        @for (post of userPosts(); track post.id) {
+          <app-post-card
+            [post]="post"
+            [liked]="isLiked(post)"
+            [showComments]="expandedPostId() === post.id"
+            [comments]="commentsForPost(post.id)"
+            (onLike)="onToggleLike(post.id)"
+            (onToggleComments)="onToggleComments(post.id)"
+            (onComment)="onCommentAdded(post.id, $event)"
+            (onDelete)="onDeletePost(post.id)"
+          />
+        }
+      </div>
+    }
+  </div>
+</div>

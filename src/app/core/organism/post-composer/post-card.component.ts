@@ -3,6 +3,7 @@ import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Post, Comment, AuthStore } from '@store/index';
 import { ButtonComponent, IconComponent } from '@core/ui/components';
 import { MenuComponent, PostComposerComponent } from '@core/molecules';
+import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-post-card',
   standalone: true,
@@ -12,6 +13,7 @@ import { MenuComponent, PostComposerComponent } from '@core/molecules';
     IconComponent,
     MenuComponent,
     PostComposerComponent,
+    RouterLink,
   ],
   templateUrl: './post-card.component.html',
   styleUrl: './post-card.component.css',

@@ -14,7 +14,7 @@
           <span>Feed</span>
         }
       </a>
-      <a class="feed-nav-item">
+      <a [routerLink]="['/profile', user?.id]" class="feed-nav-item">
         <ui-icon name="user" [size]="20" />
         @if (uiStore.sidebarOpen()) {
           <span>Perfil</span>
@@ -64,10 +64,12 @@
       </ui-button>
 
       <div class="feed-header-user">
-        <span class="feed-header-name">{{ user?.name }}</span>
-        @if (user?.avatar) {
-          <img [src]="user?.avatar" [alt]="user?.name" class="feed-avatar" />
-        }
+        <a [routerLink]="['/profile', user?.id]" class="feed-header-user">
+          <span class="feed-header-name">{{ user?.name }}</span>
+          @if (user?.avatar) {
+            <img [src]="user?.avatar" [alt]="user?.name" class="feed-avatar" />
+          }
+        </a>
       </div>
     </header>
 

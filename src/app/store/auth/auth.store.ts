@@ -57,7 +57,7 @@ export const AuthStore = signalStore(
     async loginWithEmail(email: string, password: string): Promise<void> {
       patchState(store, { loading: true, error: null });
 
-      await delay(700); // delay para simular la latencia
+      await delay(400); // delay para simular la latencia
 
       const found = MOCK_USERS.find((u) => u.email === email && u.password === password);
 

@@ -60,7 +60,10 @@ export class LoginPage {
     await this.authStore.loginWithEmail(email, password);
 
     if (this.authStore.isAuthenticated()) {
-      this.uiStore.success(`¡Bienvenido, ${this.authStore.currentUser()?.name}!`);
+      this.uiStore.success(
+        `¡Bienvenido, ${this.authStore.currentUser()?.name}!`,
+        'Sesión iniciada correctamente.',
+      );
       this.router.navigate(['/feed']);
     } else if (this.authStore.error()) {
       this.uiStore.danger('Error al iniciar sesión', this.authStore.error()!);
@@ -71,7 +74,10 @@ export class LoginPage {
     await this.authStore.loginWithGoogle();
 
     if (this.authStore.isAuthenticated()) {
-      this.uiStore.success('¡Bienvenido!', 'Sesión iniciada con Google.');
+      this.uiStore.success(
+        `¡Bienvenido, ${this.authStore.currentUser()?.name}!`,
+        'Sesión iniciada con Google.',
+      );
       this.router.navigate(['/feed']);
     }
   }

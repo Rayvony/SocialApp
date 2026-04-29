@@ -23,7 +23,12 @@
         <span class="login-divider-text">o iniciá sesión con email</span>
       </div>
 
-      <form (ngSubmit)="onSubmit()" novalidate class="login-form">
+      <form
+        (ngSubmit)="onSubmit()"
+        (submit)="$event.preventDefault()"
+        novalidate
+        class="login-form"
+      >
         <div class="login-field">
           <label class="login-label" [for]="'email'">Email</label>
           <ui-input
@@ -53,11 +58,12 @@
         </div>
 
         <ui-button
-          type="submit"
+          type="button"
           variant="primary"
           size="md"
           className="w-full mt-2"
           [disabled]="authStore.loading()"
+          (onClick)="onSubmit()"
         >
           @if (authStore.loading()) {
             <ui-icon name="loader-circle" [size]="18" className="spin" />
