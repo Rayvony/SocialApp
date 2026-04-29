@@ -1,11 +1,13 @@
 import { signalStore, withState, withComputed, withMethods, patchState } from '@ngrx/signals';
 import { computed } from '@angular/core';
 import { AuthUser, Comment, CommentsState } from '@core/models';
+
 const STORAGE_KEY = 'comments_data';
 
 function loadFromStorage(): Comment[] {
   try {
     if (typeof localStorage === 'undefined') return MOCK_COMMENTS;
+
     const raw = localStorage.getItem(STORAGE_KEY);
     return raw ? JSON.parse(raw) : MOCK_COMMENTS;
   } catch {
@@ -16,6 +18,7 @@ function loadFromStorage(): Comment[] {
 function saveToStorage(comments: Comment[]) {
   try {
     if (typeof localStorage === 'undefined') return;
+
     localStorage.setItem(STORAGE_KEY, JSON.stringify(comments));
   } catch {}
 }
@@ -60,10 +63,12 @@ export const CommentsStore = signalStore(
   withComputed((store) => ({
     commentsByPost: computed(() => {
       const map = new Map<string, Comment[]>();
+
       for (const comment of store.comments()) {
         const list = map.get(comment.postId) ?? [];
         map.set(comment.postId, [...list, comment]);
       }
+
       return map;
     }),
   })),
@@ -71,7 +76,7 @@ export const CommentsStore = signalStore(
     getCommentsForPost(postId: string): Comment[] {
       return store
         .comments()
-        .filter((c) => c.postId === postId)
+        .filter((comment) => comment.postId === postId)
         .sort((a, b) => a.createdAt - b.createdAt);
     },
 
@@ -87,15 +92,32 @@ export const CommentsStore = signalStore(
       };
 
       const updated = [...store.comments(), newComment];
+
+      saveToStorage(updated);
+      patchState(store, { comments: updated });
+    },
+
+    updateAuthor(userId: string, data: Pick<AuthUser, 'name' | 'avatar'>): void {
+      const updated = store.comments().map((comment) => {
+        if (comment.authorId !== userId) return comment;
+
+        return {
+          ...comment,
+          authorName: data.name,
+          authorAvatar: data.avatar,
+        };
+      });
+
       saveToStorage(updated);
       patchState(store, { comments: updated });
     },
 
     deleteComment(commentId: string, userId: string): void {
-      const comment = store.comments().find((c) => c.id === commentId);
+      const comment = store.comments().find((comment) => comment.id === commentId);
       if (!comment || comment.authorId !== userId) return;
 
-      const updated = store.comments().filter((c) => c.id !== commentId);
+      const updated = store.comments().filter((comment) => comment.id !== commentId);
+
       saveToStorage(updated);
       patchState(store, { comments: updated });
     },

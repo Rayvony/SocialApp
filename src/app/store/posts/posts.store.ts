@@ -148,6 +148,19 @@ export const PostsStore = signalStore(
       saveToStorage(updated);
     },
 
+    updateAuthor(userId: string, data: Pick<AuthUser, 'name' | 'avatar'>): void {
+      const updated = store.posts().map((post) => {
+        if (post.authorId !== userId) return post;
+        return {
+          ...post,
+          authorName: data.name,
+          authorAvatar: data.avatar,
+        };
+      });
+      saveToStorage(updated);
+      patchState(store, { posts: updated });
+    },
+
     toggleLike(postId: string, userId: string): void {
       const updated = store.posts().map((post) => {
         if (post.id !== postId) return post;

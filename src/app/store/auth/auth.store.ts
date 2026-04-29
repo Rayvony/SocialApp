@@ -20,6 +20,7 @@ function loadFromStorage(): AuthUser | null {
 
 function saveToStorage(user: AuthUser | null) {
   if (typeof localStorage === 'undefined') return;
+
   if (user) {
     localStorage.setItem('auth_user', JSON.stringify(user));
   } else {
@@ -57,7 +58,7 @@ export const AuthStore = signalStore(
     async loginWithEmail(email: string, password: string): Promise<void> {
       patchState(store, { loading: true, error: null });
 
-      await delay(400); // delay para simular la latencia
+      await delay(400);
 
       const found = MOCK_USERS.find((u) => u.email === email && u.password === password);
 
@@ -70,6 +71,7 @@ export const AuthStore = signalStore(
       }
 
       const { password: _, ...user } = found;
+
       saveToStorage(user);
       patchState(store, { user, loading: false, error: null });
     },
@@ -78,10 +80,9 @@ export const AuthStore = signalStore(
       patchState(store, { loading: true, error: null });
 
       await delay(800);
-      const GOOGLE_USER_ID = 'google-user-1';
 
       const user: AuthUser = {
-        id: GOOGLE_USER_ID,
+        id: 'google-user-1',
         name: 'Juan Carlos Google',
         email: 'google-user@gmail.com',
         avatar: 'https://api.dicebear.com/9.x/avataaars/svg?seed=google',
@@ -90,6 +91,11 @@ export const AuthStore = signalStore(
 
       saveToStorage(user);
       patchState(store, { user, loading: false, error: null });
+    },
+
+    updateUser(user: AuthUser): void {
+      saveToStorage(user);
+      patchState(store, { user });
     },
 
     logout(): void {

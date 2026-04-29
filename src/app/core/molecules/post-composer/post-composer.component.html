@@ -20,15 +20,15 @@
       (blur)="onBlur()"
       (keydown)="onKeyDown($event)"
     ></textarea>
-    @if (imageUrl()) {
-      <div class="composer-image-preview">
-        <img [src]="imageUrl()" alt="Imagen seleccionada" />
-        <button type="button" class="composer-image-remove" (click)="removeImage()">
-          <ui-icon name="x" [size]="14" />
-        </button>
-      </div>
-    }
   </div>
+  @if (imageUrl()) {
+    <div class="composer-image-preview">
+      <img [src]="imageUrl()" alt="Imagen seleccionada" />
+      <button type="button" class="composer-image-remove" (click)="removeImage()">
+        <ui-icon name="x" [size]="14" />
+      </button>
+    </div>
+  }
 
   @if (focused()) {
     <div class="composer-bottom">

@@ -92,11 +92,13 @@ export class ProfilePage {
     if (!current) return;
 
     const updated = { ...current, name: this.nameControl.value.trim() };
-    if (isPlatformBrowser(this.platformId)) {
-      localStorage.setItem('auth_user', JSON.stringify(updated));
-    }
+    const authorData = { name: updated.name, avatar: updated.avatar };
 
-    this.uiStore.success('Perfil actualizado');
+    this.authStore.updateUser(updated);
+    this.postsStore.updateAuthor(current.id, authorData);
+    this.commentsStore.updateAuthor(current.id, authorData);
+
+    this.uiStore.success('Perfil actualizado.');
     this.editing.set(false);
   }
 
